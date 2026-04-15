@@ -1,17 +1,18 @@
-import { use, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { Board } from "./components/Board"
-import { Machine } from "./interfaces/Machines"
+import { MACHINE } from "./interfaces/Machines"
 import { ChoiceArea } from "./components/ChoiceArea"
-import { Design } from "./interfaces/Designs"
+import { DESIGN } from "./interfaces/Designs"
+import { DesignsArea } from "./components/DesignsArea"
 
 
 function App() {
-  const [machinesOnBoard, setMachinesOnBoard] = useState<(Machine | null)[]>(Array(36).fill(null))
-  const [pickableDesign, setPickableDesign] = useState<Design | null>(null)
-  const [pickableMachines, setPickableMachines] = useState<(Machine|null)[]>([null, null])
-  const [tentativelyPlacedMachines, setTentativelyPlacedMachines] = useState<([number,Machine | null] | null)[]>([null, null])
+  const [machinesOnBoard, setMachinesOnBoard] = useState<(MACHINE | null)[]>(Array(36).fill(null))
+  const [pickableDesign, setPickableDesign] = useState<DESIGN | null>(null)
+  const [pickableMachines, setPickableMachines] = useState<(MACHINE|null)[]>([null, null])
+  const [tentativelyPlacedMachines, setTentativelyPlacedMachines] = useState<([number,MACHINE | null] | null)[]>([null, null])
   const [currentMachine, setCurrentMachine] = useState<number>(-1)
-  const [designs, setDesigns] = useState<Design[]>([])
+  const [designs, setDesigns] = useState<DESIGN[]>([])
   const [score, setScore] = useState<number>(0)
   const [turnsLeft, setTurnsLeft] = useState<number>(40)
   const [started, setStarted] = useState<boolean>(false)
@@ -45,17 +46,17 @@ function App() {
 
 
   function generatePicks() {
-    const designKeys = Object.keys(Design) as (keyof typeof Design)[]
-    const machineKeys = Object.keys(Machine) as (keyof typeof Machine)[]
-    setPickableDesign(Design[designKeys[Math.floor(Math.random() * designKeys.length)]])
+    const designKeys = Object.keys(DESIGN) as (keyof typeof DESIGN)[]
+    const machineKeys = Object.keys(MACHINE) as (keyof typeof MACHINE)[]
+    setPickableDesign(DESIGN[designKeys[Math.floor(Math.random() * designKeys.length)]])
     setPickableMachines([
-      Machine[machineKeys[Math.floor(Math.random() * machineKeys.length)]],
-      Machine[machineKeys[Math.floor(Math.random() * machineKeys.length)]]
+      MACHINE[machineKeys[Math.floor(Math.random() * machineKeys.length)]],
+      MACHINE[machineKeys[Math.floor(Math.random() * machineKeys.length)]]
     ])
   }
 
 
-  const setMachineAtIndexTentatively = (index: number, machine: Machine) => {
+  const setMachineAtIndexTentatively = (index: number, machine: MACHINE) => {
     if (currentMachine >= 0) {
 
       const newMachines = [...machinesOnBoard]
@@ -103,7 +104,7 @@ function App() {
     setScore(newScore)
   }
 
-  const addDesign = (design: Design) => {
+  const addDesign = (design: DESIGN) => {
     setDesigns([...designs, design])
     for (let i = 0; i < tentativelyPlacedMachines.length; i++) {
       const placed = tentativelyPlacedMachines[i]
@@ -124,21 +125,29 @@ function App() {
     <>
       {
       started ? 
-        <>
-          <Board  
-            machines={machinesOnBoard} 
-            currentMachine={pickableMachines[currentMachine]} 
-            setMachineAtIndexTentatively={setMachineAtIndexTentatively}
-            tentativelyPlacedMachines={tentativelyPlacedMachines}
-          />
-           
-          <ChoiceArea 
-            pickableDesign={pickableDesign} 
-            tentativelyPlacedMachines={tentativelyPlacedMachines}  
-            pickableMachines={pickableMachines} 
-            addDesign={addDesign} 
-            setCurrentMachine={setCurrentMachine}/>
-        </>
+        <div className="grid grid-cols-[55%_45%] gap-4">
+          <div className="grid grid-rows-2 gap-4">
+            <DesignsArea designs={designs}/>
+            <div className="flex flex-col items-center">
+              <ChoiceArea 
+                pickableDesign={pickableDesign} 
+                tentativelyPlacedMachines={tentativelyPlacedMachines}  
+                pickableMachines={pickableMachines} 
+                addDesign={addDesign} 
+                setCurrentMachine={setCurrentMachine}/>              
+            </div>
+
+          </div>
+          <div className="flex flex-row items-center">
+            <Board  
+              machines={machinesOnBoard} 
+              currentMachine={pickableMachines[currentMachine]} 
+              setMachineAtIndexTentatively={setMachineAtIndexTentatively}
+              tentativelyPlacedMachines={tentativelyPlacedMachines}
+            />            
+          </div>
+
+        </div>
       :
         <button onClick={() => setStarted(true)}>Start Game</button>
       }

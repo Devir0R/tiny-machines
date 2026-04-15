@@ -1,4 +1,4 @@
-export const Design = {
+export const DESIGN = {
     FIGHTER: 'FIGHTER',
     SUPER_TANK_PLUS: 'SUPER_TANK_PLUS',
     MERKAVA: 'MERKAVA',
@@ -6,4 +6,4 @@ export const Design = {
     DAVE: 'DAVE',
 } as const;
 
-export type Design = typeof Design[keyof typeof Design];
+export type DESIGN = typeof DESIGN[keyof typeof DESIGN];

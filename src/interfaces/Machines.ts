@@ -1,4 +1,4 @@
-export const Machine = {
+export const MACHINE = {
     TANK: '🚜',
     ARTILLERY: '🚀',
     HELICOPTER: '🚁',
@@ -8,4 +8,4 @@ export const Machine = {
     JET: '✈️',
 } as const;
 
-export type Machine = typeof Machine[keyof typeof Machine];
+export type MACHINE = typeof MACHINE[keyof typeof MACHINE];

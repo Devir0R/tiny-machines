@@ -1,12 +1,12 @@
-import type { Design } from "../interfaces/Designs";
-import type { Machine } from "../interfaces/Machines";
+import type { DESIGN } from "../interfaces/Designs";
+import type { MACHINE } from "../interfaces/Machines";
 
 interface ChoiceAreaProps {
-    pickableDesign: Design | null;
-    pickableMachines: (Machine | null)[];
-    addDesign: (design: Design) => void;
+    pickableDesign: DESIGN | null;
+    pickableMachines: (MACHINE | null)[];
+    addDesign: (design: DESIGN) => void;
     setCurrentMachine: (index: number) => void;
-    tentativelyPlacedMachines: ([number, Machine | null] | null)[];
+    tentativelyPlacedMachines: ([number, MACHINE | null] | null)[];
 }
 
 export const ChoiceArea = ({ pickableDesign, pickableMachines, addDesign, setCurrentMachine, tentativelyPlacedMachines }: ChoiceAreaProps) => {

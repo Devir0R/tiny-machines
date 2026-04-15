@@ -1,11 +1,10 @@
-import { useEffect } from "react";
-import { Machine } from "../interfaces/Machines";
+import { MACHINE } from "../interfaces/Machines";
 
 interface BoardProps {
-  machines: (Machine | null)[];
-  currentMachine: Machine | null;
-  setMachineAtIndexTentatively: (index: number, machine: Machine) => void;
-    tentativelyPlacedMachines: ([number, Machine | null] | null)[];
+  machines: (MACHINE | null)[];
+  currentMachine: MACHINE | null;
+  setMachineAtIndexTentatively: (index: number, machine: MACHINE) => void;
+    tentativelyPlacedMachines: ([number, MACHINE | null] | null)[];
 }
 
 const BOARD_LENGTH = 6;
