@@ -4,6 +4,7 @@ import { MACHINE } from "./interfaces/Machines"
 import { ChoiceArea } from "./components/ChoiceArea"
 import { DESIGN } from "./interfaces/Designs"
 import { DesignsArea } from "./components/DesignsArea"
+import { Info } from "./components/Info"
 
 
 function App() {
@@ -125,29 +126,33 @@ function App() {
     <>
       {
       started ? 
-        <div className="grid grid-cols-[55%_45%] gap-4">
-          <div className="grid grid-rows-2 gap-4">
-            <DesignsArea designs={designs}/>
-            <div className="flex flex-col items-center">
-              <ChoiceArea 
-                pickableDesign={pickableDesign} 
-                tentativelyPlacedMachines={tentativelyPlacedMachines}  
-                pickableMachines={pickableMachines} 
-                addDesign={addDesign} 
-                setCurrentMachine={setCurrentMachine}/>              
-            </div>
-
-          </div>
-          <div className="flex flex-row items-center">
-            <Board  
-              machines={machinesOnBoard} 
-              currentMachine={pickableMachines[currentMachine]} 
-              setMachineAtIndexTentatively={setMachineAtIndexTentatively}
-              tentativelyPlacedMachines={tentativelyPlacedMachines}
-            />            
+      <div className="grid grid-cols-[55%_45%] gap-4">
+        <div className="grid grid-rows-2 gap-4">
+          <DesignsArea designs={designs}/>
+          <div className="flex flex-col items-center">
+            <ChoiceArea 
+              pickableDesign={pickableDesign} 
+              tentativelyPlacedMachines={tentativelyPlacedMachines}  
+              pickableMachines={pickableMachines} 
+              addDesign={addDesign} 
+              setCurrentMachine={setCurrentMachine}
+              currentMachine={currentMachine}
+              />              
           </div>
 
         </div>
+        <div className="grid grid-rows-[80%_20%] items-center">
+          <Board  
+            machines={machinesOnBoard} 
+            currentMachine={pickableMachines[currentMachine]} 
+            setMachineAtIndexTentatively={setMachineAtIndexTentatively}
+            tentativelyPlacedMachines={tentativelyPlacedMachines}
+          />
+          <Info score={score} turnsLeft={turnsLeft} />          
+        </div>
+        
+      </div>
+      
       :
         <button onClick={() => setStarted(true)}>Start Game</button>
       }
