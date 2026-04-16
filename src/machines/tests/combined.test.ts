@@ -1,7 +1,7 @@
 import { Ambulance } from "../Ambulance";
 import { Helicopter } from "../Helicopter";
 import { Jet } from "../Jet";
-import { Ship } from "../Ship";
+import { Missile } from "../Missile";
 import { SlotMachine } from "../SlotMachine";
 import { Train } from "../Train";
 import { UFO } from "../UFO";
@@ -15,11 +15,11 @@ describe("Combined machines on a shared board", () => {
     board[4] = new Ambulance(4);
     board[6] = new SlotMachine(6);
     board[7] = new Helicopter(7);
-    board[8] = new Ship(8);
+    board[8] = new Missile(8);
     // Board configuration:
     // ✈️ 🚆 X
     // 🛸 🚑 X
-    // 🎰 🚁 🚢
+    // 🎰 🚁 🚀
 
     expect((board[0] as Jet).score(board)).toBe(1);
     expect((board[1] as Train).score(board)).toBe(0);
@@ -27,6 +27,6 @@ describe("Combined machines on a shared board", () => {
     expect((board[4] as Ambulance).score(board)).toBe(3);
     expect((board[6] as SlotMachine).score(board)).toBe(3);
     expect((board[7] as Helicopter).score(board)).toBe(2);
-    expect((board[8] as Ship).score(board)).toBe(2);
+    expect((board[8] as Missile).score(board)).toBe(0);
   });
 });

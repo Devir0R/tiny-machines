@@ -1,19 +1,20 @@
 import { MACHINE } from "../interfaces/Machines";
+import type { Machine } from "../machines/Machine";
 
 interface BoardProps {
-  machines: (MACHINE | null)[];
+  machines: (Machine | null)[];
   currentMachine: MACHINE | null;
   setMachineAtIndexTentatively: (index: number, machine: MACHINE) => void;
-    tentativelyPlacedMachines: ([number, MACHINE | null] | null)[];
+    tentativelyPlacedMachines: ([number, Machine | null] | null)[];
 }
 
-const BOARD_LENGTH = 6;
+const BOARD_LENGTH = 8;
 
 export const Board = ({ machines, currentMachine, setMachineAtIndexTentatively, tentativelyPlacedMachines }: BoardProps) => {
 
     return (
         <div className="aspect-square w-full max-w-md mx-auto mt-10">
-            <div className={`grid grid-cols-${BOARD_LENGTH.toString()} gap-2 p-4 bg-gray-200 rounded-lg text-center`}>
+            <div className={`grid grid-cols-8 gap-2 p-4 bg-gray-200 rounded-lg text-center`}>
                 {machines.map((machine, index) =>
                     <div className={`cell`} key={`machine-div-${index}`}>
                         <button
@@ -24,7 +25,7 @@ export const Board = ({ machines, currentMachine, setMachineAtIndexTentatively, 
                                 setMachineAtIndexTentatively(index,currentMachine)
                             }
                         }}>
-                            {machine ?? "󠀠"}
+                            {machine?.icon ?? "󠀠"}
                         </button>
                     </div>
                 )}

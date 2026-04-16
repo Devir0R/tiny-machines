@@ -5,17 +5,19 @@ import { ChoiceArea } from "./components/ChoiceArea"
 import { DESIGN } from "./interfaces/Designs"
 import { DesignsArea } from "./components/DesignsArea"
 import { Info } from "./components/Info"
+import { Machine } from "./machines/Machine"
+import { MachineFactory } from "./machines/MachineFactory"
 
 
 function App() {
-  const [machinesOnBoard, setMachinesOnBoard] = useState<(MACHINE | null)[]>(Array(36).fill(null))
+  const [machinesOnBoard, setMachinesOnBoard] = useState<(Machine | null)[]>(Array(64).fill(null))
   const [pickableDesign, setPickableDesign] = useState<DESIGN | null>(null)
   const [pickableMachines, setPickableMachines] = useState<(MACHINE|null)[]>([null, null])
-  const [tentativelyPlacedMachines, setTentativelyPlacedMachines] = useState<([number,MACHINE | null] | null)[]>([null, null])
+  const [tentativelyPlacedMachines, setTentativelyPlacedMachines] = useState<([number,Machine | null] | null)[]>([null, null])
   const [currentMachine, setCurrentMachine] = useState<number>(-1)
   const [designs, setDesigns] = useState<DESIGN[]>([])
   const [score, setScore] = useState<number>(0)
-  const [turnsLeft, setTurnsLeft] = useState<number>(40)
+  const [turnsLeft, setTurnsLeft] = useState<number>(30)
   const [started, setStarted] = useState<boolean>(false)
   const [confirmed, setConfirmed] = useState<boolean>(false)
 
@@ -28,9 +30,9 @@ function App() {
         alert(`Game Over! Your final score is ${score}`)
         setStarted(false)
         setScore(0)
-        setTurnsLeft(40)
+        setTurnsLeft(30)
         setDesigns([])
-        setMachinesOnBoard(Array(36).fill(null))
+        setMachinesOnBoard(Array(64).fill(null))
       }
     }
   }, [started,turnsLeft])
@@ -76,7 +78,7 @@ function App() {
       
       newTentativelyPlacedMachines[currentMachine] = [index, machinesOnBoard[index]]
 
-      newMachines[index] = machine
+      newMachines[index] =  MachineFactory.create(machine, index)
       setMachinesOnBoard(newMachines)
 
       setCurrentMachine(-1)
@@ -100,11 +102,9 @@ function App() {
 
   function calculateScore() {
     // Placeholder scoring logic - to be replaced with actual scoring based on designs and machine placements
-    const newScore = 0;
+    let newScore = 0;
     for (let i = 0; i < machinesOnBoard.length; i++) {
-      if(machinesOnBoard[i]) {
-        //newScore += 10; // Each machine placed gives 10 points, for example
-      }
+      newScore += machinesOnBoard[i]?.score(machinesOnBoard) ?? 0;
     }
     setScore(newScore)
   }

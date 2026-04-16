@@ -1,12 +1,13 @@
 import type { DESIGN } from "../interfaces/Designs";
 import type { MACHINE } from "../interfaces/Machines";
+import type { Machine } from "../machines/Machine";
 
 interface ChoiceAreaProps {
     pickableDesign: DESIGN | null;
     pickableMachines: (MACHINE | null)[];
     addDesign: (design: DESIGN) => void;
     setCurrentMachine: (index: number) => void;
-    tentativelyPlacedMachines: ([number, MACHINE | null] | null)[];
+    tentativelyPlacedMachines: ([number, Machine | null] | null)[];
     currentMachine: number;
 }
 

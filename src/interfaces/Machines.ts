@@ -4,7 +4,7 @@ export const MACHINE = {
     HELICOPTER: '🚁',
     TRAIN: '🚆', 
     AMBULANCE: '🚑',
-    SHIP: '⛴', // points for longest continuous empty path from it
+    MISSILE: '🚀', 
     JET: '✈️', 
 } as const;
 
