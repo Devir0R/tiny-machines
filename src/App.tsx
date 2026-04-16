@@ -23,7 +23,6 @@ function App() {
     if (started) {
       // Generate a random design and machines for the player to choose from
       if(turnsLeft > 0) {
-            console.log("turn proceeded");
         proceedTurn()
       } else {
         alert(`Game Over! Your final score is ${score}`)
@@ -101,7 +100,12 @@ function App() {
 
   function calculateScore() {
     // Placeholder scoring logic - to be replaced with actual scoring based on designs and machine placements
-    const newScore = score + Math.floor(Math.random() * 10) + 1
+    const newScore = 0;
+    for (let i = 0; i < machinesOnBoard.length; i++) {
+      if(machinesOnBoard[i]) {
+        //newScore += 10; // Each machine placed gives 10 points, for example
+      }
+    }
     setScore(newScore)
   }
 

@@ -1,4 +1,8 @@
 {
+  "compilerOptions": {
+    "types": ["vite/client", "jest"],
+    "esModuleInterop": true
+  },
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },
