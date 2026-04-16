@@ -20,6 +20,8 @@ function App() {
   const [turnsLeft, setTurnsLeft] = useState<number>(30)
   const [started, setStarted] = useState<boolean>(false)
   const [confirmed, setConfirmed] = useState<boolean>(false)
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
+  const [isBoardHovered, setIsBoardHovered] = useState(false)
 
   useEffect(() => {
     if (started) {
@@ -130,7 +132,7 @@ function App() {
     <>
       {
       started ? 
-      <div className="grid grid-cols-[55%_45%] gap-4">
+      <div className="grid grid-cols-[55%_45%] gap-4" onMouseMove={(event) => setMousePos({ x: event.clientX, y: event.clientY })}>
         <div className="grid grid-rows-2 gap-4">
           <DesignsArea designs={designs}/>
           <div className="flex flex-col items-center">
@@ -151,10 +153,19 @@ function App() {
             currentMachine={pickableMachines[currentMachine]} 
             setMachineAtIndexTentatively={setMachineAtIndexTentatively}
             tentativelyPlacedMachines={tentativelyPlacedMachines}
+            onBoardHoverChange={setIsBoardHovered}
           />
           <Info score={score} turnsLeft={turnsLeft} />          
         </div>
-        
+
+        {currentMachine >= 0 && pickableMachines[currentMachine] && !isBoardHovered && (
+          <div
+            className="fixed z-50 pointer-events-none rounded-full bg-black/10 p-1 text-4xl opacity-80"
+            style={{ left: mousePos.x - 24, top: mousePos.y - 24 }}
+          >
+            {pickableMachines[currentMachine]}
+          </div>
+        )}
       </div>
       
       :

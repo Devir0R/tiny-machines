@@ -1,35 +1,46 @@
-import { MACHINE } from "../interfaces/Machines";
+import { useState } from "react"
+import type { MACHINE } from "../interfaces/Machines";
 import type { Machine } from "../machines/Machine";
 
 interface BoardProps {
   machines: (Machine | null)[];
   currentMachine: MACHINE | null;
   setMachineAtIndexTentatively: (index: number, machine: MACHINE) => void;
-    tentativelyPlacedMachines: ([number, Machine | null] | null)[];
+  tentativelyPlacedMachines: ([number, Machine | null] | null)[];
+  onBoardHoverChange: (hovered: boolean) => void;
 }
 
-const BOARD_LENGTH = 8;
-
-export const Board = ({ machines, currentMachine, setMachineAtIndexTentatively, tentativelyPlacedMachines }: BoardProps) => {
+export const Board = ({ machines, currentMachine, setMachineAtIndexTentatively, tentativelyPlacedMachines ,onBoardHoverChange}: BoardProps) => {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
     return (
-        <div className="aspect-square w-full max-w-md mx-auto mt-10">
+        <div
+          className="relative aspect-square w-full max-w-md mx-auto mt-10"
+          onMouseEnter={() => onBoardHoverChange(true)}
+          onMouseLeave={() => {
+            onBoardHoverChange(false)
+            setHoveredIndex(null)
+          }}
+        >
             <div className={`grid grid-cols-8 gap-2 p-4 bg-gray-200 rounded-lg text-center`}>
                 {machines.map((machine, index) =>
                     <div className={`cell`} key={`machine-div-${index}`}>
                         <button
                         key={`button-machine-${index}`} 
-                        className={`w-full h-full flex items-center justify-center p-2 hover:bg-gray-300 border border-gray-400 rounded ${isTentativelyPicked(index) ? 'bg-gray-500' : 'bg-white'}`}
+                        className={`w-full h-full flex items-center justify-center p-2 border border-gray-400 rounded transition ${isTentativelyPicked(index) ? 'bg-gray-500' : 'bg-white'} ${hoveredIndex === index && !machine ? 'bg-blue-100' : ''}`}
+                        onMouseEnter={() => setHoveredIndex(index)}
+                        onMouseLeave={() => setHoveredIndex(null)}
                         onClick={()=>{
                             if(currentMachine)  {
                                 setMachineAtIndexTentatively(index,currentMachine)
                             }
                         }}>
-                            {machine?.icon ?? "󠀠"}
+                            {machine?.icon ?? (currentMachine && hoveredIndex === index ? <span className="opacity-40">{currentMachine}</span> : "󠀠")}
                         </button>
                     </div>
                 )}
             </div>
+
         </div>
     )
 
