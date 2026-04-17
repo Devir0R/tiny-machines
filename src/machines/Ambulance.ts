@@ -1,5 +1,11 @@
 import { Machine } from "./Machine";
 
+/**
+ * Ambulance machine:
+ * - Icon: 🚑
+ * - Description: "1 point for each air unit around it"
+ * - Scoring: Scores 1 point for each adjacent machine that is an air unit (Jet, UFO, Helicopter)
+ */
 export class Ambulance extends Machine {
     constructor(index: number) {
         super(index);

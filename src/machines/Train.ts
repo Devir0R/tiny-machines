@@ -1,5 +1,11 @@
 import { Machine } from "./Machine";
 
+/**
+ * Train machine:
+ * - Icon: 🚆
+ * - Description: "4 points if adjacent to exactly two 🚆"
+ * - Scoring: Scores 4 points if it is adjacent to exactly two other Train machines (🚆) in the four cardinal directions (up, down, left, right)
+ */
 export class Train extends Machine {
     constructor(index: number) {
         super(index);

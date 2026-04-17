@@ -9,10 +9,10 @@ interface DesignProps {
 
 export const DesignsArea = ({designs} : DesignProps) => {
     return (
-        <div className="col-span-1 bg-gray-200 p-4 text-center flex flex-col items-center max-w-2md max-h-96">
+        <div className="col-span-1 bg-gray-200 p-4 text-center flex flex-col items-center w-full">
             <h2 className="text-xl font-bold mb-1">Designs</h2>
-            <div className="grid grid-cols-5 gap-4 mb-4 items-center outline-2 outline-dashed outline-gray-400 p-4 rounded-lg max-w-2sm">
-                <div className="grid grid-cols-5 gap-4 mb-4">
+            <div className="w-full max-w-4xl h-64 outline-2 outline-dashed outline-gray-400 p-4 rounded-lg overflow-x-auto">
+                <div className="min-w-181 h-full grid grid-cols-5 gap-4 items-stretch">
                     {designs.map((design, index) => {
                         const designInfo = DesignTypes[design];
                         return <DesignCard 

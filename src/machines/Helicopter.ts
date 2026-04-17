@@ -1,5 +1,11 @@
 import { Machine } from "./Machine";    
 
+/**
+ * Helicopter machine:
+ * - Icon: 🚁
+ * - Description: "2 points for each empty spot around it surrounded by at least 3 machines"
+ * - Scoring: Scores 2 points for each adjacent empty space that is surrounded by at least 3 machines (including diagonals)
+ */
 export class Helicopter extends Machine {
     constructor(index: number) {
         super(index);

@@ -1,5 +1,11 @@
 import { Machine } from "./Machine";
 
+/**
+ * Jet machine:
+ * - Icon: ✈️
+ * - Description: "1 point for each space in the longest straight empty line from it"
+ * - Scoring: Scores 1 point for each space in the longest straight line of empty spaces from it (including diagonals), stopping at the first occupied space
+ */
 export class Jet extends Machine {
     constructor (index: number){
         super(index);

@@ -1,5 +1,11 @@
 import { Machine } from "./Machine";
 
+/**
+ * Missile machine:
+ * - Icon: 🚀
+ * - Description: "2 points for each ✈️ or 🚆 adjacent to it"
+ * - Scoring: Scores 2 points for each adjacent machine that is either a Jet (✈️) or a Train (🚆)
+ */
 export class Missile extends Machine {
     constructor(index: number) {
         super(index);

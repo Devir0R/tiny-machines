@@ -1,5 +1,11 @@
 import { Machine } from "./Machine";
 
+/**
+ * UFO machine:
+ * - Icon: 🛸
+ * - Description: "1 point for each empty space around it"
+ * - Scoring: Scores 1 point for each adjacent empty space (up, down, left, right)
+ */
 export class UFO extends Machine {
     constructor(index: number) {
         super(index);

@@ -1,5 +1,11 @@
 import { Machine } from "./Machine";
 
+/**
+ * Slot Machine:
+ * - Icon: 🎰
+ * - Description: "1 point for each different machine in a line coming out of it with most different machines"
+ * - Scoring: Scores 1 point for each different machine in the longest straight line of machines from it (including diagonals), stopping at the first empty space. Only counts different machine types, so multiple machines of the same type in the line only count as 1.
+ */
 export class SlotMachine extends Machine {
     constructor(index: number) {
         super(index);

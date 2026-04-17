@@ -30,29 +30,26 @@ export function DesignCard({
 
   return (
     <div 
-      className={`relative bg-linear-to-br ${rarityColors[rarity]} border-2 rounded-lg p-2 
-        transition-all duration-300 hover:scale-105 hover:shadow-2xl ${rarityGlow[rarity]} 
+      className={`relative overflow-hidden bg-linear-to-br ${rarityColors[rarity]} border-2 rounded-lg p-2 
+        transition-shadow duration-300 hover:shadow-2xl ${rarityGlow[rarity]} 
         cursor-pointer group`}
       onClick={onPurchase}
     >
-      {/* Corner decorations */}
-      <div className="absolute top-0 left-0 w-4 h-4 border-t-4 border-l-4 border-amber-400 opacity-60"></div>
-      <div className="absolute top-0 right-0 w-4 h-4 border-t-4 border-r-4 border-amber-400 opacity-60"></div>
-      <div className="absolute bottom-0 left-0 w-4 h-4 border-b-4 border-l-4 border-amber-400 opacity-60"></div>
-      <div className="absolute bottom-0 right-0 w-4 h-4 border-b-4 border-r-4 border-amber-400 opacity-60"></div>
+      <div className="transition-transform duration-300 group-hover:scale-105">
 
       {/* Icon */}
-      <div className="flex justify-center mb-1">
-        <div className="text-2xl bg-black/30 rounded-full p-1 group-hover:scale-110 transition-transform">
+      <div className="flex justify-center mb-2">
+        <div className="text-3xl bg-black/30 rounded-full p-2 group-hover:scale-110 transition-transform">
           {icon}
         </div>
       </div>
 
       {/* Name */}
-      <h3 className="text-lg text-center text-white mb-1 uppercase tracking-wide">{name}</h3>
+      <h3 className="text-lg text-center text-white mb-2 uppercase tracking-wide min-h-8">{name}</h3>
 
       {/* Description */}
-      <p className="text-gray-300 text-[0.7rem] text-center mb-1 min-h-8">{description}</p>
+      <p className="text-gray-300 text-[0.800rem] text-center mb-1 min-h-12 leading-tight">{description}</p>
+    </div>
     </div>
   );
 }
