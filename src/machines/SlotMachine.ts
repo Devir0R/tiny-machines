@@ -1,47 +1,43 @@
+import type { MACHINE } from "../interfaces/Machines";
 import { Machine } from "./Machine";
 
 /**
  * Slot Machine:
  * - Icon: 🎰
- * - Description: "1 point for each different machine in a line coming out of it with most different machines"
- * - Scoring: Scores 1 point for each different machine in the longest straight line of machines from it (including diagonals), stopping at the first empty space. Only counts different machine types, so multiple machines of the same type in the line only count as 1.
+ * - Description: "2 points for each 2 machines of the same type around it, and 5 points for each 3 machines of the same type around it"
+ * - Scoring: Scores 2 points for each pair of identical machines around it, and 5 points for each triplet of identical machines around it.
  */
 export class SlotMachine extends Machine {
     constructor(index: number) {
         super(index);
         this.name = "SlotMachine";
-        this.description = "1 point for each different machine in a line coming out of it with most different machines";
+        this.description = "2 points for each 2 machines of the same type around it, and 5 points for each 3 machines of the same type around it";
         this.icon = "🎰";
     }
 
+
+
     score(machinesOnBoard: (Machine | null)[]): number {
-        let score = 0;
-        const directions = [this.Up, this.Down, this.Right, this.Left];
-        for (const direction of directions) {
-            let currentIndex = direction(this.index, machinesOnBoard);
-            const seenMachines = new Set<string>();
-            let currentLength = 0;
-
-            while (currentIndex !== -1) {
-                if (machinesOnBoard[currentIndex] === null) {
-                    break;
-                }
-
-                const machine = machinesOnBoard[currentIndex];
-                if (machine && !seenMachines.has(machine.icon)) {
-                    seenMachines.add(machine.icon);
-                    currentLength++;
-                } else {
-                    break;
-                }
-
-                currentIndex = direction(currentIndex, machinesOnBoard);
+       const machineCount: Record<MACHINE, number> = {} as Record<MACHINE, number>;
+         for(const index of this.indexesAround(this.index, machinesOnBoard)) {
+            if (machinesOnBoard[index] !== null) {
+                const machine = machinesOnBoard[index]!;
+                machineCount[machine.icon] = (machineCount[machine.icon] || 0) + 1;
             }
-
-            score = Math.max(score, currentLength);
         }
 
-        return score+1;
+        let score = 0;
+        for (const key of Object.keys(machineCount)) {
+            const count = machineCount[key as MACHINE];
+            if (count === 2) {
+                score += 2;
+            } else if (count === 3) {
+                score += 5;
+            }
+        }
+
+        return score;
+
     }
 
 }

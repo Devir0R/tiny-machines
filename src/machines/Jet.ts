@@ -3,55 +3,45 @@ import { Machine } from "./Machine";
 /**
  * Jet machine:
  * - Icon: ✈️
- * - Description: "1 point for each space in the longest straight empty line from it"
- * - Scoring: Scores 1 point for each space in the longest straight line of empty spaces from it (including diagonals), stopping at the first occupied space
+ * - Description: "2 points for each different machine in a line coming out of it with most different machines"
+ * - Scoring: Scores 2 points for each different machine in the longest straight line of machines from it (including diagonals), stopping at the first empty space. Only counts different machine types, so multiple machines of the same type in the line only count as 1.
  */
 export class Jet extends Machine {
     constructor (index: number){
         super(index);
         this.name = "Jet";
-        this.description = "1 point for each space in the longest straight empty line from it";
+        this.description = "1 point for each different machine in a line coming out of it with most different machines";
         this.icon = "✈️";
     }
 
 
     score(machinesOnBoard: (Machine | null)[]): number {
-        let upLength = 1;
-        let downLength = 1;
-        let rightLength = 1;
-        let leftLength = 1;
+        let score = 0;
+        const directions = [this.Up, this.Down, this.Right, this.Left];
+        for (const direction of directions) {
+            let currentIndex = direction(this.index, machinesOnBoard);
+            const seenMachines = new Set<string>();
+            let currentLength = 0;
 
-        // Check up
-        let upIndex = this.Up(this.index, machinesOnBoard);
-        while (upIndex !== -1 && machinesOnBoard[upIndex] === null) {
-            upLength++;
-            upIndex = this.Up(upIndex, machinesOnBoard);
+            while (currentIndex !== -1) {
+                if (machinesOnBoard[currentIndex] === null) {
+                    break;
+                }
+
+                const machine = machinesOnBoard[currentIndex];
+                if (machine && !seenMachines.has(machine.icon)) {
+                    seenMachines.add(machine.icon);
+                    currentLength+=2;
+                } else {
+                    break;
+                }
+
+                currentIndex = direction(currentIndex, machinesOnBoard);
+            }
+
+            score = Math.max(score, currentLength);
         }
 
-        // Check down
-        let downIndex = this.Down(this.index, machinesOnBoard);
-        while (downIndex !== -1 && machinesOnBoard[downIndex] === null) {
-            downLength++;
-            downIndex = this.Down(downIndex, machinesOnBoard);
-        }
-
-        // Check right
-        let rightIndex = this.Right(this.index, machinesOnBoard);
-        while (rightIndex !== -1 && machinesOnBoard[rightIndex] === null) {
-            rightLength++;
-            rightIndex = this.Right(rightIndex, machinesOnBoard);
-        }
-
-        // Check left
-        let leftIndex = this.Left(this.index, machinesOnBoard);
-        while (leftIndex !== -1 && machinesOnBoard[leftIndex] === null) {
-            leftLength++;
-            leftIndex = this.Left(leftIndex, machinesOnBoard);
-        }
-
-        // Calculate the longest line
-        const longestLine = Math.max(upLength, downLength, rightLength, leftLength);
-
-        return longestLine;
+        return score;
     }
 }

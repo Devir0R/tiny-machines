@@ -9,7 +9,7 @@ describe("Train", () => {
     board[1] = new Train(1);
     board[7] = new Train(7);
 
-    expect((board[4] as Train).score(board)).toBe(4);
+    expect((board[4] as Train).score(board)).toBe(6);
   });
 
   test("returns zero unless exactly two adjacent trains are present", () => {

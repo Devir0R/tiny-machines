@@ -21,11 +21,11 @@ describe("Combined machines on a shared board", () => {
     // 🛸 🚑 X
     // 🎰 🚁 🚀
 
-    expect((board[0] as Jet).score(board)).toBe(1);
+    expect((board[0] as Jet).score(board)).toBe(4);
     expect((board[1] as Train).score(board)).toBe(0);
-    expect((board[3] as UFO).score(board)).toBe(0);
+    expect((board[3] as UFO).score(board)).toBe(7);
     expect((board[4] as Ambulance).score(board)).toBe(3);
-    expect((board[6] as SlotMachine).score(board)).toBe(3);
+    expect((board[6] as SlotMachine).score(board)).toBe(0);
     expect((board[7] as Helicopter).score(board)).toBe(2);
     expect((board[8] as Missile).score(board)).toBe(0);
   });

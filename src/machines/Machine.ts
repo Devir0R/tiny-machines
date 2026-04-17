@@ -1,14 +1,16 @@
+import type { MACHINE } from "../interfaces/Machines";
+
 export abstract class Machine {
     public name: string;
     public description: string;
-    public icon: string;
+    public icon: MACHINE;
     public index: number;
 
     constructor(index: number) {
         this.index = index;
         this.name = "Machine";
         this.description = "not implemented machine";
-        this.icon = "🤖";
+        this.icon = "✈️";
     }
 
     abstract score(machinesOnBoard: (Machine | null)[]): number;

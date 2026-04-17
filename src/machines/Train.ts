@@ -3,14 +3,14 @@ import { Machine } from "./Machine";
 /**
  * Train machine:
  * - Icon: 🚆
- * - Description: "4 points if adjacent to exactly two 🚆"
- * - Scoring: Scores 4 points if it is adjacent to exactly two other Train machines (🚆) in the four cardinal directions (up, down, left, right)
+ * - Description: "6 points if adjacent to exactly two 🚆"
+ * - Scoring: Scores 6 points if it is adjacent to exactly two other Train machines (🚆) in the four cardinal directions (up, down, left, right)
  */
 export class Train extends Machine {
     constructor(index: number) {
         super(index);
         this.name = "Train";
-        this.description = "4 points if adjacent to exactly two 🚆";
+        this.description = "6 points if adjacent to exactly two 🚆";
         this.icon = "🚆";
     }
 
@@ -27,7 +27,7 @@ export class Train extends Machine {
         }
 
         if (connectedTrains === 2) {
-            score = 4;
+            score = 6;
         }
 
         return score;

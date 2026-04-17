@@ -3,23 +3,28 @@ import { Machine } from "./Machine";
 /**
  * UFO machine:
  * - Icon: 🛸
- * - Description: "1 point for each empty space around it"
- * - Scoring: Scores 1 point for each adjacent empty space (up, down, left, right)
+ * - Description: "scores as much as the sum of all adjacent machines"
+ * - Scoring: Scores as much as the sum of all adjacent machines (in the four cardinal directions: up, down, left, right)
  */
 export class UFO extends Machine {
     constructor(index: number) {
         super(index);
         this.name = "UFO";
-        this.description = "1 point for each empty space around it";
+        this.description = "Scores as much as the sum of all adjacent machines";
         this.icon = "🛸";
     }
 
     score(machinesOnBoard: (Machine | null)[]): number {
-        // Implementation for UFO scoring logic
         let score = 0;
-        for (const index of this.indexesAround(this.index, machinesOnBoard)) {
-            if (index !== -1 && machinesOnBoard[index] === null) {
-                score++;
+
+        const adjacentIndexes = [this.Up(this.index, machinesOnBoard),
+            this.Down(this.index, machinesOnBoard),
+            this.Right(this.index, machinesOnBoard),
+            this.Left(this.index, machinesOnBoard)];
+
+        for (const adjacentIndex of adjacentIndexes) {
+            if (adjacentIndex !== -1 && machinesOnBoard[adjacentIndex]) {
+                score += machinesOnBoard[adjacentIndex]!.score(machinesOnBoard);
             }
         }
         return score;
