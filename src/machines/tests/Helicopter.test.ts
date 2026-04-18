@@ -7,7 +7,21 @@ import { Ambulance } from "../Ambulance";
 const createEmptyBoard = () => Array(9).fill(null) as (any | null)[];
 
 describe("Helicopter", () => {
-  test("scores 2 points for an empty adjacent space surrounded by at least three machines", () => {
+  test("scores 4 points for an empty adjacent space surrounded by at least three machines", () => {
+    const board = createEmptyBoard();
+    board[4] = new Helicopter(4);
+    board[0] = new Jet(0);
+    board[2] = new Train(2);
+    board[3] = new Helicopter(3);
+    board[5] = new Ambulance(5);
+//board cinfiguration:
+//✈️ X🚆
+//🚁🚁🚑
+// X X X
+    expect((board[4] as Helicopter).score(board)).toBe(8);
+  });
+
+    test("scores 4 points for an empty adjacent space surrounded by at least three machines with UFO", () => {
     const board = createEmptyBoard();
     board[4] = new Helicopter(4);
     board[0] = new Jet(0);
@@ -18,15 +32,16 @@ describe("Helicopter", () => {
 //✈️ X🚆
 //🛸🚁🚑
 // X X X
-    expect((board[4] as Helicopter).score(board)).toBe(4);
+    expect((board[3] as UFO).score(board)).toBe(0);
+    expect((board[4] as Helicopter).score(board)).toBe(16);
   });
 
-  test("returns zero when adjacent empty spots are not surrounded by enough machines", () => {
+  test("returns 4 when adjacent for 1 spot surrounded by 3 machines", () => {
     const board = createEmptyBoard();
     board[4] = new Helicopter(4);
     board[0] = new Jet(0);
     board[2] = new Train(2);
 
-    expect((board[4] as Helicopter).score(board)).toBe(2);
+    expect((board[4] as Helicopter).score(board)).toBe(4);
   });
 });

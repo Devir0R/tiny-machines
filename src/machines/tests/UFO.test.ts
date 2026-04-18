@@ -10,6 +10,7 @@ describe("UFO", () => {
     board[1] = new Train(1);
 
     expect((board[4] as UFO).score(board)).toBe(0);
+    expect((board[1] as Train).score(board)).toBe(2);
   });
 
   test("scores zero when surrounded by machines", () => {
@@ -24,6 +25,10 @@ describe("UFO", () => {
     board[6] = new Train(6);
     board[8] = new Train(8);
 
-    expect((board[4] as UFO).score(board)).toBe(24);
+    expect((board[4] as UFO).score(board)).toBe(0);
+
+
+    expect((board[1] as Train).score(board)).toBe(16);
+    expect((board[0] as Train).score(board)).toBe(8);
   });
 });

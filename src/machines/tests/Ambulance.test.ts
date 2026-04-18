@@ -11,11 +11,24 @@ describe("Ambulance", () => {
     const board = createEmptyBoard();
     board[4] = new Ambulance(4);
     board[1] = new Jet(1);
+    board[3] = new Helicopter(3);
+    board[5] = new Helicopter(5);
+    board[7] = new Train(7);
+
+    expect((board[4] as Ambulance).score(board)).toBe(6);
+  });
+
+  test("scores air units around it with 1 UFO", () => {
+    const board = createEmptyBoard();
+    board[4] = new Ambulance(4);
+    board[1] = new Jet(1);
     board[3] = new UFO(3);
     board[5] = new Helicopter(5);
     board[7] = new Train(7);
 
-    expect((board[4] as Ambulance).score(board)).toBe(3);
+
+    expect((board[3] as UFO).score(board)).toBe(0);
+    expect((board[4] as Ambulance).score(board)).toBe(12);
   });
 
   test("returns zero when no air units are nearby", () => {

@@ -106,7 +106,7 @@ function App() {
     // Placeholder scoring logic - to be replaced with actual scoring based on designs and machine placements
     let newScore = 0;
     for (let i = 0; i < machinesOnBoard.length; i++) {
-      newScore += machinesOnBoard[i]?.score(machinesOnBoard) ?? 0;
+      newScore += machinesOnBoard[i]?.myScore(machinesOnBoard) ?? 0;
     }
     setScore(newScore)
   }

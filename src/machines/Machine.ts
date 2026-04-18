@@ -5,15 +5,25 @@ export abstract class Machine {
     public description: string;
     public icon: MACHINE;
     public index: number;
+    private scoreEnhancers: ((score:number) => number)[] = [];
 
     constructor(index: number) {
         this.index = index;
         this.name = "Machine";
         this.description = "not implemented machine";
         this.icon = "✈️";
+        this.scoreEnhancers = [];
     }
 
-    abstract score(machinesOnBoard: (Machine | null)[]): number;
+    addScoreEnhancer(enhancer: (score: number) => number): void {
+        this.scoreEnhancers.push(enhancer);
+    }
+
+    abstract myScore(machinesOnBoard: (Machine | null)[]): number;
+    score(machinesOnBoard: (Machine | null)[]): number {
+        let baseScore = this.myScore(machinesOnBoard);
+        return this.scoreEnhancers.reduce((score, enhancer) => enhancer(score), baseScore);
+    }
 
     Up(index: number, machinesOnBoard: (Machine | null)[]): number{
         const length = Math.round(Math.sqrt(machinesOnBoard.length));
