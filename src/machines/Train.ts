@@ -14,7 +14,7 @@ export class Train extends Machine {
         this.icon = "🚆";
     }
 
-    myScore(machinesOnBoard: (Machine | null)[]): number {
+    getBaseScore(machinesOnBoard: (Machine | null)[]): number {
         let connectedTrains = 0;
 
         const visited = new Set<number>();

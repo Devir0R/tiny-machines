@@ -18,7 +18,7 @@ describe("Helicopter", () => {
 //✈️ X🚆
 //🚁🚁🚑
 // X X X
-    expect((board[4] as Helicopter).score(board)).toBe(8);
+    expect((board[4] as Helicopter).getBaseScore(board)).toBe(8);
   });
 
     test("scores 4 points for an empty adjacent space surrounded by at least three machines with UFO", () => {
@@ -32,8 +32,11 @@ describe("Helicopter", () => {
 //✈️ X🚆
 //🛸🚁🚑
 // X X X
-    expect((board[3] as UFO).score(board)).toBe(0);
-    expect((board[4] as Helicopter).score(board)).toBe(16);
+    // Apply effects
+    for (let i = 0; i < board.length; i++) {
+      if (board[i]) board[i]!.applyEffects(board);
+    }
+    expect((board[4] as Helicopter).score(board)).toBe(16); // Base 8 * 2 (doubled by UFO)
   });
 
   test("returns 4 when adjacent for 1 spot surrounded by 3 machines", () => {
@@ -42,6 +45,6 @@ describe("Helicopter", () => {
     board[0] = new Jet(0);
     board[2] = new Train(2);
 
-    expect((board[4] as Helicopter).score(board)).toBe(4);
+    expect((board[4] as Helicopter).getBaseScore(board)).toBe(4);
   });
 });

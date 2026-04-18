@@ -9,8 +9,13 @@ describe("UFO", () => {
     board[4] = new UFO(4);
     board[1] = new Train(1);
 
+    // Apply effects
+    for (let i = 0; i < board.length; i++) {
+      if (board[i]) board[i]!.applyEffects(board);
+    }
+
     expect((board[4] as UFO).score(board)).toBe(0);
-    expect((board[1] as Train).score(board)).toBe(2);
+    expect((board[1] as Train).score(board)).toBe(2); // Base 1 * 2 (doubled by UFO)
   });
 
   test("scores zero when surrounded by machines", () => {
@@ -25,10 +30,12 @@ describe("UFO", () => {
     board[6] = new Train(6);
     board[8] = new Train(8);
 
-    expect((board[4] as UFO).score(board)).toBe(0);
+    // Apply effects
+    for (let i = 0; i < board.length; i++) {
+      if (board[i]) board[i]!.applyEffects(board);
+    }
 
-
-    expect((board[1] as Train).score(board)).toBe(16);
-    expect((board[0] as Train).score(board)).toBe(8);
+    expect((board[1] as Train).score(board)).toBe(16); // Base 8 * 2 (doubled by UFO)
+    expect((board[0] as Train).score(board)).toBe(8); // Base 4 * 2 (doubled by UFO)
   });
 });

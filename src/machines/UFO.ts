@@ -14,17 +14,26 @@ export class UFO extends Machine {
         this.icon = "🛸";
     }
 
-    myScore(machinesOnBoard: (Machine | null)[]): number {
-        const adjacentIndexes = [this.Up(this.index, machinesOnBoard),
+    getBaseScore(_machinesOnBoard: (Machine | null)[]): number {
+        return 0;
+    }
+
+    applyEffects(machinesOnBoard: (Machine | null)[]): void {
+        const adjacentIndexes = [
+            this.Up(this.index, machinesOnBoard),
             this.Down(this.index, machinesOnBoard),
             this.Right(this.index, machinesOnBoard),
-            this.Left(this.index, machinesOnBoard)];
+            this.Left(this.index, machinesOnBoard)
+        ];
 
         for (const adjacentIndex of adjacentIndexes) {
-            if (adjacentIndex !== -1 && machinesOnBoard[adjacentIndex] ) {
-                machinesOnBoard[adjacentIndex]!.addScoreEnhancer((s) => s * 2);
+            if (adjacentIndex !== -1 && machinesOnBoard[adjacentIndex]) {
+                machinesOnBoard[adjacentIndex].effects.push(this.doubleScore);
             }
         }
-        return 0;
+    }
+
+    doubleScore(score: number): number {
+        return score * 2;
     }
 }

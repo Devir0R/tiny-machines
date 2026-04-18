@@ -15,7 +15,7 @@ export class Jet extends Machine {
     }
 
 
-    myScore(machinesOnBoard: (Machine | null)[]): number {
+    getBaseScore(machinesOnBoard: (Machine | null)[]): number {
         let score = 0;
         const directions = [this.Up, this.Down, this.Right, this.Left];
         for (const direction of directions) {

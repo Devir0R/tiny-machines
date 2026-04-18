@@ -5,24 +5,31 @@ export abstract class Machine {
     public description: string;
     public icon: MACHINE;
     public index: number;
-    private scoreEnhancers: ((score:number) => number)[] = [];
+    public effects: ((score:number)=>number)[] = [];
 
     constructor(index: number) {
         this.index = index;
         this.name = "Machine";
         this.description = "not implemented machine";
         this.icon = "✈️";
-        this.scoreEnhancers = [];
     }
 
-    addScoreEnhancer(enhancer: (score: number) => number): void {
-        this.scoreEnhancers.push(enhancer);
+    abstract getBaseScore(machinesOnBoard: (Machine | null)[]): number;
+
+    applyEffects(_machinesOnBoard: (Machine | null)[]): void {
+        // Default: no effects. Override in subclasses.
     }
 
-    abstract myScore(machinesOnBoard: (Machine | null)[]): number;
     score(machinesOnBoard: (Machine | null)[]): number {
-        let baseScore = this.myScore(machinesOnBoard);
-        return this.scoreEnhancers.reduce((score, enhancer) => enhancer(score), baseScore);
+        let base = this.getBaseScore(machinesOnBoard);
+        for (const effect of this.effects) {
+            base = effect(base);
+        }
+        return base;
+    }
+
+    resetEffects(): void {
+        this.effects = [];
     }
 
     Up(index: number, machinesOnBoard: (Machine | null)[]): number{

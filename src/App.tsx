@@ -103,12 +103,28 @@ function App() {
   }
 
   function calculateScore() {
-    // Placeholder scoring logic - to be replaced with actual scoring based on designs and machine placements
+    // Reset all effects from previous turn
+    for (let i = 0; i < machinesOnBoard.length; i++) {
+      if (machinesOnBoard[i]) {
+        machinesOnBoard[i]!.resetEffects();
+      }
+    }
+
+    // Apply effects (e.g., UFO marks adjacent machines for doubling)
+    for (let i = 0; i < machinesOnBoard.length; i++) {
+      if (machinesOnBoard[i]) {
+        machinesOnBoard[i]!.applyEffects(machinesOnBoard);
+      }
+    }
+
+    // Calculate scores with effects applied
     let newScore = 0;
     for (let i = 0; i < machinesOnBoard.length; i++) {
-      newScore += machinesOnBoard[i]?.myScore(machinesOnBoard) ?? 0;
+      if (machinesOnBoard[i]) {
+        newScore += machinesOnBoard[i]!.score(machinesOnBoard);
+      }
     }
-    setScore(newScore)
+    setScore(newScore);
   }
 
   const addDesign = (design: DESIGN) => {

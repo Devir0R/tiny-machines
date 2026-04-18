@@ -14,7 +14,7 @@ export class Ambulance extends Machine {
         this.icon = "🚑";
     }
 
-    myScore(machinesOnBoard: (Machine | null)[]): number {
+    getBaseScore(machinesOnBoard: (Machine | null)[]): number {
         let score = 0;
         const airUnits = new Set<string>(["✈️", "🛸","🚁"]);
 

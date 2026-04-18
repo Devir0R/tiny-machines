@@ -17,7 +17,7 @@ export class SlotMachine extends Machine {
 
 
 
-    myScore(machinesOnBoard: (Machine | null)[]): number {
+    getBaseScore(machinesOnBoard: (Machine | null)[]): number {
        const machineCount: Record<MACHINE, number> = {} as Record<MACHINE, number>;
          for(const index of this.indexesAround(this.index, machinesOnBoard)) {
             if (machinesOnBoard[index] !== null) {

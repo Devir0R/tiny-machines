@@ -14,7 +14,7 @@ export class Helicopter extends Machine {
         this.icon = "🚁";
     }
 
-    myScore(machinesOnBoard: (Machine | null)[]): number {
+    getBaseScore(machinesOnBoard: (Machine | null)[]): number {
         let score = 0;
         const indexesAround = this.indexesAround(this.index, machinesOnBoard);
 

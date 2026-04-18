@@ -15,7 +15,7 @@ describe("Ambulance", () => {
     board[5] = new Helicopter(5);
     board[7] = new Train(7);
 
-    expect((board[4] as Ambulance).score(board)).toBe(6);
+    expect((board[4] as Ambulance).getBaseScore(board)).toBe(6);
   });
 
   test("scores air units around it with 1 UFO", () => {
@@ -27,8 +27,11 @@ describe("Ambulance", () => {
     board[7] = new Train(7);
 
 
-    expect((board[3] as UFO).score(board)).toBe(0);
-    expect((board[4] as Ambulance).score(board)).toBe(12);
+    // Apply effects
+    for (let i = 0; i < board.length; i++) {
+      if (board[i]) board[i]!.applyEffects(board);
+    }
+    expect((board[4] as Ambulance).score(board)).toBe(12); // Base 6 * 2 (doubled by UFO)
   });
 
   test("returns zero when no air units are nearby", () => {
@@ -38,6 +41,6 @@ describe("Ambulance", () => {
     board[3] = new Train(3);
     board[5] = new Train(5);
 
-    expect((board[4] as Ambulance).score(board)).toBe(0);
+    expect((board[4] as Ambulance).getBaseScore(board)).toBe(0);
   });
 });

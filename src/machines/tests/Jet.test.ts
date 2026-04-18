@@ -9,7 +9,7 @@ describe("Jet", () => {
     const board = createEmptyBoard();
     board[4] = new Jet(4);
 
-    expect((board[4] as Jet).score(board)).toBe(0);
+    expect((board[4] as Jet).getBaseScore(board)).toBe(0);
   });
 
   test("stops scoring when the first adjacent space is occupied", () => {
@@ -20,7 +20,7 @@ describe("Jet", () => {
     board[3] = new Train(3);
     board[5] = new Train(5);
 
-    expect((board[4] as Jet).score(board)).toBe(1);
+    expect((board[4] as Jet).getBaseScore(board)).toBe(1);
   });
 
     test("stops scoring when the first adjacent space is occupied", () => {
@@ -34,6 +34,6 @@ describe("Jet", () => {
 //✈️✈️🚁
 //🚁 X X
 //🚁 X X
-    expect((board[0] as Jet).score(board)).toBe(4);
+    expect((board[0] as Jet).getBaseScore(board)).toBe(4);
   });
 });
