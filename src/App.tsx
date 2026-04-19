@@ -17,7 +17,7 @@ function App() {
   const [currentMachine, setCurrentMachine] = useState<number>(-1)
   const [designs, setDesigns] = useState<DESIGN[]>([])
   const [score, setScore] = useState<number>(0)
-  const [turnsLeft, setTurnsLeft] = useState<number>(30)
+  const [turnsLeft, setTurnsLeft] = useState<number>(20)
   const [started, setStarted] = useState<boolean>(false)
   const [confirmed, setConfirmed] = useState<boolean>(false)
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
@@ -32,7 +32,7 @@ function App() {
         alert(`Game Over! Your final score is ${score}`)
         setStarted(false)
         setScore(0)
-        setTurnsLeft(30)
+        setTurnsLeft(20)
         setDesigns([])
         setMachinesOnBoard(Array(64).fill(null))
       }
