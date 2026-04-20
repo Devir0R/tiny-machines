@@ -2,7 +2,8 @@ import { DesignCard } from "./Design";
 import type { MACHINE } from "../interfaces/Machines";
 import type { Machine } from "../machines/Machine";
 import type { Design } from "../designs/Design";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { MachineFactory } from "../machines/MachineFactory";
 
 interface ChoiceAreaProps {
   pickableDesign: Design | null;
@@ -15,7 +16,10 @@ interface ChoiceAreaProps {
 
 export const ChoiceArea = ({ pickableDesign, pickableMachines, addDesign, setCurrentMachine, tentativelyPlacedMachines, currentMachine }: ChoiceAreaProps) => {
     const [showsError, setShowError] = useState(false);
-    
+    const [showMachineDescription, setShowMachineDescription] = useState(false)
+    const [hoveredDom, setHoveredDom] = useState<DOMRect | null>(null)
+    const [hoveredMachine,setHoveredMachine] = useState<Machine|null>();
+      
     useEffect(()=>{
         setShowError(false);
     },[pickableDesign,currentMachine,pickableMachines,tentativelyPlacedMachines])
@@ -44,6 +48,18 @@ export const ChoiceArea = ({ pickableDesign, pickableMachines, addDesign, setCur
                 onClick={() => {
                   setCurrentMachine(index);
                 }}
+
+                onMouseEnter={(e)=>{
+                  setHoveredDom(e.currentTarget.getBoundingClientRect());
+                  setShowMachineDescription(true);
+                  setHoveredMachine(MachineFactory.create(machine,0))
+                }}
+                onMouseLeave={()=>{
+                  setHoveredDom(null);
+                  setShowMachineDescription(false);
+                  setHoveredMachine(null)
+
+                }}
               >
                 {machine}
               </button>
@@ -51,6 +67,15 @@ export const ChoiceArea = ({ pickableDesign, pickableMachines, addDesign, setCur
           ))}
         </div>
       </div>
+
+    {showMachineDescription && hoveredDom &&(
+          <div
+            className="text-white fixed z-50 pointer-events-none rounded-sm p-1 text-sm opacity-80 info-rec max-w-30"
+            style={{ left: hoveredDom.x  , top: hoveredDom.bottom , translate: '-2rem'}}
+          >
+            {hoveredMachine?.description}
+          </div>
+        )}
     </div>
   );
 };

@@ -188,6 +188,10 @@
 
   }
 
+  .info-rec {
+    background-color: var(--steampunk-gray);
+  }
+
   input {
     font-size: var(--text-base);
     font-weight: var(--font-weight-normal);
