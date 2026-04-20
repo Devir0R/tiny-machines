@@ -3,14 +3,14 @@ import { Machine } from "./Machine";
 /**
  * Helicopter machine:
  * - Icon: 🚁
- * - Description: "4 points for each empty spot around it surrounded by at least 3 machines"
- * - Scoring: Scores 4 points for each adjacent empty space that is surrounded by at least 3 machines (including diagonals)
+ * - Description: "3 points for each empty spot around it surrounded by at least 3 machines"
+ * - Scoring: Scores 3 points for each adjacent empty space that is surrounded by at least 3 machines (including diagonals)
  */
 export class Helicopter extends Machine {
     constructor(index: number) {
         super(index);
         this.name = "Helicopter";
-        this.description = "4 points for each empty spot around it surrounded by at least 3 machines";
+        this.description = "3 points for each empty spot around it surrounded by at least 3 machines";
         this.icon = "🚁";
     }
 
@@ -28,7 +28,7 @@ export class Helicopter extends Machine {
                     }
                 }
                 if (surroundingMachinesCount >= 3) {
-                    score += 4;
+                    score += 3;
                 }
             }
         }

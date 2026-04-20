@@ -29,7 +29,7 @@ describe("Combined machines on a shared board", () => {
     expect((board[1] as Train).score(board)).toBe(1); // Not adjacent to UFO
     expect((board[4] as Ambulance).score(board)).toBe(12); // Base 6 * 2 (doubled by UFO)
     expect((board[6] as SlotMachine).score(board)).toBe(0);
-    expect((board[7] as Helicopter).score(board)).toBe(4); // Not adjacent to UFO
+    expect((board[7] as Helicopter).score(board)).toBe(3); // Not adjacent to UFO
     expect((board[8] as Missile).score(board)).toBe(2); // Not adjacent to UFO
     expect((board[3] as UFO).score(board)).toBe(0);
   });

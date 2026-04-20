@@ -3,7 +3,7 @@ import type { Machine } from "../../machines/Machine";
 
 export class AlienHelicopter extends Design {
   name = "Alien Helicopter";
-  description = "for each 🚁 adjacent to an 🛸, an empty space around a 🚁, surrounded by at least four machines, gives additional 4 points";
+  description = "for each 🚁 adjacent to an 🛸, an empty space around a 🚁, surrounded by at least four machines, gives additional 3 points";
   icon = "🛸🚁";
   rarity: "common" | "legendary" = "legendary";
 

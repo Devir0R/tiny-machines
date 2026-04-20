@@ -49,7 +49,24 @@ function App() {
     }
   }, [confirmed])
 
+  useEffect(() => {
+    const handleContextMenu = (event: { preventDefault: () => void; clientX: any; clientY: any }) => {
+      // Prevents the default browser context menu from appearing
+      event.preventDefault(); 
+      
+      if(currentMachine) setCurrentMachine(-1);
+    };
 
+    // Attach listener to the window to catch right-clicks anywhere
+    window.addEventListener('contextmenu', handleContextMenu);
+
+    // Clean up the listener when the component unmounts
+    return () => {
+      window.removeEventListener('contextmenu', handleContextMenu);
+    };
+  }, []);
+
+  
   function generatePicks() {
     const designOptions = Object.values(DesignTypes)
     const machineKeys = Object.keys(MACHINE) as (keyof typeof MACHINE)[]
@@ -139,6 +156,7 @@ function App() {
   }
 
   const addDesign = (design: Design) => {
+    if(designs.length >= 5) return false;
     setDesigns([...designs, design])
     for (let i = 0; i < tentativelyPlacedMachines.length; i++) {
       const placed = tentativelyPlacedMachines[i]
@@ -151,6 +169,7 @@ function App() {
     }
     setTentativelyPlacedMachines([null, null])
     setConfirmed(true)
+    return true;
   }
 
 
@@ -159,8 +178,8 @@ function App() {
     <>
       {
       started ? 
-      <div className="grid grid-cols-[55%_45%] gap-4" onMouseMove={(event) => setMousePos({ x: event.clientX, y: event.clientY })}>
-        <div className="grid grid-rows-2 gap-4">
+      <div className="grid grid-cols-[60%_40%] gap-4" onMouseMove={(event) => setMousePos({ x: event.clientX, y: event.clientY })}>
+        <div className="grid grid-rows-[50%_45%] gap-4">
           <DesignsArea designs={designs}/>
           <div className="flex flex-col items-center">
             <ChoiceArea 
