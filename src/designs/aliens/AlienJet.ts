@@ -6,6 +6,7 @@ export class AlienJet extends Design {
   description = "for each ✈️ adjacent to an 🛸, if line with most different machines also has no repeating machine, double its points";
   icon = "🛸✈️";
   rarity: "common" | "legendary" = "legendary";
+  machines = ['🛸', '✈️'];
 
   score(_machinesOnBoard: (Machine | null)[]): number {
     return 0;

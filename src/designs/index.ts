@@ -1,6 +1,6 @@
 // Pair Designs
-export { AmbulancopterSync } from "./pairs/Ambulancopter";
-export { HighSpeedMedic } from "./pairs/HighSpeedMedic";
+export { AmbulanceHeliopter as AmbulancopterSync } from "./pairs/AmbulanceHeliopter";
+export { SpeedyMedic as HighSpeedMedic } from "./pairs/SpeedyMedic";
 export { ExplosiveHealing } from "./pairs/ExplosiveHealing";
 export { LotteryAmbulance } from "./pairs/LotteryAmbulance";
 export { TrainwreckRescue } from "./pairs/TrainwreckRescue";

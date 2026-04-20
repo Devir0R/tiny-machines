@@ -30,10 +30,7 @@ export const ChoiceArea = ({ pickableDesign, pickableMachines, addDesign, setCur
         <div className="grid gap-4 mb-1">
           {pickableDesign && 
             <DesignCard 
-                description={pickableDesign.description}
-                icon={pickableDesign.icon}
-                name={pickableDesign.name}
-                rarity={pickableDesign.rarity}
+                design={pickableDesign}
                 onClick={() => {
                     if(pickableDesign) setShowError(!addDesign(pickableDesign))
                 }}/>}

@@ -6,6 +6,7 @@ export class AlienSlotMachine extends Design {
   description = "for each 🎰 adjacent to a 🛸, score that many points sqaured";
   icon = "🛸🎰";
   rarity: "common" | "legendary" = "legendary";
+  machines = ['🛸', '🎰'];
   score(machinesOnBoard: (Machine | null)[]): number {
     let score  = 0;
     for(const machine of machinesOnBoard){

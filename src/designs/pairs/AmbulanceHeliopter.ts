@@ -1,11 +1,12 @@
 import { Design } from "../Design";
 import type { Machine } from "../../machines/Machine";
 
-export class AmbulancopterSync extends Design {
-  name = "Ambulancopter";
+export class AmbulanceHeliopter extends Design {
+  name = "Ambulance Heliopter";
   description = "for each pair of 🚁 adjacent to an 🚑, gain 4 points";
   icon = "🚑🚁";
   rarity: "common" | "legendary" = "common";
+  machines = ['🚑', '🚁'];
 
   score(_machinesOnBoard: (Machine | null)[]): number {
     const machine1Icon = '🚑';

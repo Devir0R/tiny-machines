@@ -5,6 +5,7 @@ export abstract class Design {
   abstract description: string;
   abstract icon: string;
   abstract rarity: "common" | "legendary";
+  abstract machines: string[];
 
   abstract score(_machinesOnBoard: (Machine | null)[]): number;
   abstract applyEffect(_machinesOnBoard: (Machine | null)[]): void;

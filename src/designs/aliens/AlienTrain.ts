@@ -6,6 +6,7 @@ export class AlienTrain extends Design {
   description = "each 🚆 adjacent to an 🛸, doubles adjacent 🚆 scoring.";
   icon = "🛸🚆";
   rarity: "common" | "legendary" = "legendary";
+  machines = ['🛸', '🚆'];
 
   score(_machinesOnBoard: (Machine | null)[]): number {
     return 0;

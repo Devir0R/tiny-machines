@@ -23,6 +23,7 @@ function App() {
   const [confirmed, setConfirmed] = useState<boolean>(false)
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
   const [isBoardHovered, setIsBoardHovered] = useState(false)
+  const [placingFromDesign, setPlacingFromDesign] = useState<{ designIndex: number, machineIcon: string } | null>(null)
 
   useEffect(() => {
     if (started) {
@@ -54,7 +55,10 @@ function App() {
       // Prevents the default browser context menu from appearing
       event.preventDefault(); 
       
-      if(currentMachine) setCurrentMachine(-1);
+      if(currentMachine !== -1 || placingFromDesign!== null) {
+        setCurrentMachine(-1);
+        setPlacingFromDesign(null);
+      }
     };
 
     // Attach listener to the window to catch right-clicks anywhere
@@ -79,6 +83,19 @@ function App() {
 
 
   const setMachineAtIndexTentatively = (index: number, machine: MACHINE) => {
+    if (placingFromDesign) {
+      // Placing from design: place the machine and remove the design
+      const newMachines = [...machinesOnBoard];
+      newMachines[index] = MachineFactory.create(placingFromDesign.machineIcon as MACHINE, index);
+      setMachinesOnBoard(newMachines);
+      // Remove the design
+      const newDesigns = designs.filter((_, i) => i !== placingFromDesign.designIndex);
+      setDesigns(newDesigns);
+      setPlacingFromDesign(null);
+      setCurrentMachine(-1);
+      return;
+    }
+
     if (currentMachine >= 0) {
 
       const newMachines = [...machinesOnBoard]
@@ -172,22 +189,30 @@ function App() {
     return true;
   }
 
+  const onMachineClick = (design: Design, designIndex: number, machineIcon: string) => {
+    setPlacingFromDesign({ designIndex, machineIcon });
+    setCurrentMachine(-1); // Use 0 for design placement
+  };
+
 
   
   return (
     <>
       {
       started ? 
-      <div className="grid grid-cols-[60%_40%] gap-4" onMouseMove={(event) => setMousePos({ x: event.clientX, y: event.clientY })}>
+      <div className="grid grid-cols-[57%_40%] gap-4" onMouseMove={(event) => setMousePos({ x: event.clientX, y: event.clientY })}>
         <div className="grid grid-rows-[50%_45%] gap-4">
-          <DesignsArea designs={designs}/>
+          <DesignsArea designs={designs} onMachineClick={onMachineClick}/>
           <div className="flex flex-col items-center">
             <ChoiceArea 
               pickableDesign={pickableDesign} 
               tentativelyPlacedMachines={tentativelyPlacedMachines}  
               pickableMachines={pickableMachines} 
               addDesign={addDesign} 
-              setCurrentMachine={setCurrentMachine}
+              setCurrentMachine={(index:number)=>{
+                setPlacingFromDesign(null);
+                setCurrentMachine(index);
+              }}
               currentMachine={currentMachine}
               />              
           </div>
@@ -200,6 +225,7 @@ function App() {
             setMachineAtIndexTentatively={setMachineAtIndexTentatively}
             tentativelyPlacedMachines={tentativelyPlacedMachines}
             onBoardHoverChange={setIsBoardHovered}
+            placingFromDesign={placingFromDesign}
           />
           <Info score={score} turnsLeft={turnsLeft} />          
         </div>
@@ -210,6 +236,15 @@ function App() {
             style={{ left: mousePos.x - 24, top: mousePos.y - 24 }}
           >
             {pickableMachines[currentMachine]}
+          </div>
+        )}
+
+        {placingFromDesign && !isBoardHovered && (
+          <div
+            className="fixed z-50 pointer-events-none rounded-full bg-black/10 p-1 text-4xl opacity-80"
+            style={{ left: mousePos.x - 24, top: mousePos.y - 24 }}
+          >
+            {placingFromDesign.machineIcon}
           </div>
         )}
       </div>

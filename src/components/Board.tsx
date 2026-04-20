@@ -8,11 +8,15 @@ interface BoardProps {
   setMachineAtIndexTentatively: (index: number, machine: MACHINE) => void;
   tentativelyPlacedMachines: ([number, Machine | null] | null)[];
   onBoardHoverChange: (hovered: boolean) => void;
+  placingFromDesign: { designIndex: number, machineIcon: string } | null;
 }
 
-export const Board = ({ machines, currentMachine, setMachineAtIndexTentatively, tentativelyPlacedMachines ,onBoardHoverChange}: BoardProps) => {
+export const Board = ({ machines, currentMachine, setMachineAtIndexTentatively, tentativelyPlacedMachines ,onBoardHoverChange, placingFromDesign}: BoardProps) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
+  console.log("current machine", currentMachine);
+  console.log("current design machine", placingFromDesign);
+  
     return (
         <div
           className="relative aspect-square w-full max-w-md mx-auto mt-10"
@@ -33,9 +37,18 @@ export const Board = ({ machines, currentMachine, setMachineAtIndexTentatively, 
                         onClick={()=>{
                             if(currentMachine)  {
                                 setMachineAtIndexTentatively(index,currentMachine)
+                            } else if (placingFromDesign) {
+                                setMachineAtIndexTentatively(index, placingFromDesign.machineIcon as MACHINE)
                             }
                         }}>
-                            {machine?.icon ?? (currentMachine && hoveredIndex === index ? <span className="opacity-40">{currentMachine}</span> : "󠀠")}
+                            {machine?.icon ?? 
+                            ((currentMachine && hoveredIndex === index)?
+                                <span className="opacity-40">{currentMachine}</span> 
+                                :
+                                placingFromDesign && hoveredIndex === index ? 
+                                    <span className="opacity-40">{placingFromDesign.machineIcon}</span> 
+                                    :
+                                    "󠀠")}
                         </button>
                     </div>
                 )}

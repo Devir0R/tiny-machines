@@ -6,6 +6,7 @@ export class AlienHelicopter extends Design {
   description = "for each 🚁 adjacent to an 🛸, an empty space around a 🚁, surrounded by at least four machines, gives additional 3 points";
   icon = "🛸🚁";
   rarity: "common" | "legendary" = "legendary";
+  machines = ['🛸', '🚁'];
 
   score(machinesOnBoard: (Machine | null)[]): number {
       let score = 0;

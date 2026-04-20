@@ -6,6 +6,7 @@ export class LotteryStrike extends Design {
   description = "for each pair of ✈️ adjacent to an 🚀, gain 4 points";
   icon = "✈️🚀";
   rarity: "common" | "legendary" = "common";
+  machines = ['🚀', '🎰'];
 
   score(_machinesOnBoard: (Machine | null)[]): number {
     const machine1Icon = '🚀';

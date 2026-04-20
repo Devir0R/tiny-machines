@@ -3,9 +3,10 @@ import { DesignCard } from "./Design";
 
 interface DesignProps {
   designs: Design[];
+  onMachineClick: (design: Design, designIndex: number, machineIcon: string) => void;
 }
 
-export const DesignsArea = ({ designs }: DesignProps) => {
+export const DesignsArea = ({ designs, onMachineClick }: DesignProps) => {
   return (
     <div className="design-area col-span-1 p-4 text-center flex flex-col items-center w-full rounded-sm">
       <h2 className="text-xl font-bold mb-1">Designs</h2>
@@ -14,10 +15,8 @@ export const DesignsArea = ({ designs }: DesignProps) => {
           {designs.map((design, index) => (
             <DesignCard
               key={index}
-              name={design.name}
-              description={design.description}
-              icon={design.icon}
-              rarity={design.rarity}
+              design={design}
+              onMachineClick={(machineIcon) => onMachineClick(design, index, machineIcon)}
             />
           ))}
         </div>
