@@ -4,6 +4,8 @@ import type { Machine } from "../../machines/Machine";
 export class AlienAmbulance extends Design {
   name = "Alien Ambulance";
   description = "for each 🚑 adjacent to an 🛸, if all three air machines are around it, double its points";
+  icon = "🛸🚑";
+  rarity: "common" | "legendary" = "legendary";
 
   score(_machinesOnBoard: (Machine | null)[]): number {
     return 0;

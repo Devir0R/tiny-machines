@@ -2,20 +2,21 @@ import { useEffect, useState } from "react"
 import { Board } from "./components/Board"
 import { MACHINE } from "./interfaces/Machines"
 import { ChoiceArea } from "./components/ChoiceArea"
-import { DESIGN } from "./interfaces/Designs"
 import { DesignsArea } from "./components/DesignsArea"
 import { Info } from "./components/Info"
 import { Machine } from "./machines/Machine"
 import { MachineFactory } from "./machines/MachineFactory"
+import { Design } from "./designs/Design"
+import { DesignTypes } from "./data/DesignTypes"
 
 
 function App() {
   const [machinesOnBoard, setMachinesOnBoard] = useState<(Machine | null)[]>(Array(64).fill(null))
-  const [pickableDesign, setPickableDesign] = useState<DESIGN | null>(null)
+  const [pickableDesign, setPickableDesign] = useState<Design | null>(null)
   const [pickableMachines, setPickableMachines] = useState<(MACHINE|null)[]>([null, null])
   const [tentativelyPlacedMachines, setTentativelyPlacedMachines] = useState<([number,Machine | null] | null)[]>([null, null])
   const [currentMachine, setCurrentMachine] = useState<number>(-1)
-  const [designs, setDesigns] = useState<DESIGN[]>([])
+  const [designs, setDesigns] = useState<Design[]>([])
   const [score, setScore] = useState<number>(0)
   const [turnsLeft, setTurnsLeft] = useState<number>(20)
   const [started, setStarted] = useState<boolean>(false)
@@ -50,9 +51,9 @@ function App() {
 
 
   function generatePicks() {
-    const designKeys = Object.keys(DESIGN) as (keyof typeof DESIGN)[]
+    const designOptions = Object.values(DesignTypes)
     const machineKeys = Object.keys(MACHINE) as (keyof typeof MACHINE)[]
-    setPickableDesign(DESIGN[designKeys[Math.floor(Math.random() * designKeys.length)]])
+    setPickableDesign(designOptions[Math.floor(Math.random() * designOptions.length)])
     setPickableMachines([
       MACHINE[machineKeys[Math.floor(Math.random() * machineKeys.length)]],
       MACHINE[machineKeys[Math.floor(Math.random() * machineKeys.length)]]
@@ -127,7 +128,7 @@ function App() {
     setScore(newScore);
   }
 
-  const addDesign = (design: DESIGN) => {
+  const addDesign = (design: Design) => {
     setDesigns([...designs, design])
     for (let i = 0; i < tentativelyPlacedMachines.length; i++) {
       const placed = tentativelyPlacedMachines[i]

@@ -4,6 +4,8 @@ import { Machine } from "../../machines/Machine";
 export class AlienSlotMachine extends Design {
   name = "Alien Slot Machine";
   description = "for each 🎰 adjacent to a 🛸, score that many points sqaured";
+  icon = "🛸🎰";
+  rarity: "common" | "legendary" = "legendary";
   score(machinesOnBoard: (Machine | null)[]): number {
     let score  = 0;
     for(const machine of machinesOnBoard){

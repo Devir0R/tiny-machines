@@ -1,17 +1,22 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  --steampunk-purple-18: rgb(34 31 46);
+  --steampunk-purple-44: rgb(79 72 107);
+  --steampunk-purple-30: rgb(57, 52, 77);
   --font-size: 16px;
-  --background: #ffffff;
+  --background: rgb(205 152 86);
+  --secondary-background: rgb(157 96 55);
+  --steampunk-gray: rgb(120 111 123);
   --foreground: oklch(0.145 0 0);
-  --card: #ffffff;
+  --card: rgb(207 171 131);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
   --primary: #030213;
   --primary-foreground: oklch(1 0 0);
   --secondary: oklch(0.95 0.0058 264.53);
-  --secondary-foreground: #030213;
+  --secondary-foreground: rgb(58 62 81);
   --muted: #ececf0;
   --muted-foreground: #717182;
   --accent: #e9ebef;
@@ -25,11 +30,6 @@
   --font-weight-medium: 500;
   --font-weight-normal: 400;
   --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
   --radius: 0.625rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
@@ -39,6 +39,10 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+}
+
+.board {
+  background-color: var(--secondary-background);
 }
 
 .dark {
@@ -63,11 +67,6 @@
   --ring: oklch(0.439 0 0);
   --font-weight-medium: 500;
   --font-weight-normal: 400;
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
@@ -100,11 +99,6 @@
   --color-input-background: var(--input-background);
   --color-switch-background: var(--switch-background);
   --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -127,11 +121,6 @@
   body {
     @apply bg-background text-foreground;
   }
-
-  /**
-  * Default typography styles for HTML elements (h1-h4, p, label, button, input).
-  * These are in @layer base, so Tailwind utility classes (like text-sm, text-lg) automatically override them.
-  */
 
   html {
     font-size: var(--font-size);
@@ -171,6 +160,32 @@
     font-size: var(--text-base);
     font-weight: var(--font-weight-medium);
     line-height: 1.5;
+    background-color: var(--card);
+  }
+
+  .tentative-button {
+    background-color: var(--steampunk-gray);
+  }
+
+  .design-area,.choice-area,.info {
+    background-color: var(--secondary-background);
+  }
+  .interactable-area {
+    background-color: var(--secondary-foreground);
+  }
+
+  .dark-sp-purple{
+    background-color: var(--steampunk-purple-18);
+  }
+
+  .light-sp-purple{
+    background-color: var(--steampunk-purple-44);
+
+  }
+
+  .medium-sp-purple{
+    background-color: var(--steampunk-purple-44);
+
   }
 
   input {

@@ -3,7 +3,7 @@ interface DesignProps {
   name: string;
   description: string;
   icon: string;
-  rarity?: "common" | "rare" | "epic" | "legendary";
+  rarity?: "common" | "legendary";
   onPurchase?: () => void;
 }
 
@@ -16,15 +16,11 @@ export function DesignCard({
 }: DesignProps) {
   const rarityColors = {
     common: "from-gray-600 to-gray-700 border-gray-500",
-    rare: "from-blue-600 to-blue-700 border-blue-400",
-    epic: "from-purple-600 to-purple-700 border-purple-400",
     legendary: "from-yellow-600 to-yellow-700 border-yellow-400"
   };
 
   const rarityGlow = {
     common: "shadow-gray-500/20",
-    rare: "shadow-blue-500/40",
-    epic: "shadow-purple-500/40",
     legendary: "shadow-yellow-500/60"
   };
 

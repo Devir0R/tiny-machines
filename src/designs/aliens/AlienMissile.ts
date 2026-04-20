@@ -4,6 +4,8 @@ import type { Machine } from "../../machines/Machine";
 export class AlienMissile extends Design {
   name = "Alien Missile";
   description = "for each 🚀 adjacent to an 🛸, if all three non-air machines are around it, double its points";
+  icon = "🛸🚀";
+  rarity: "common" | "legendary" = "legendary";
 
   score(_machinesOnBoard: (Machine | null)[]): number {
     return 0;
@@ -23,7 +25,6 @@ export class AlienMissile extends Design {
         
         let hasSlotMachine = false;
         let hasAmbulance = false;
-        let hasTrain = false;
         for (const adjacentIndex of indexesAround) {
           if (adjacentIndex === -1 || !machinesOnBoard[adjacentIndex]) {
             continue;
@@ -31,8 +32,6 @@ export class AlienMissile extends Design {
             hasSlotMachine = true;
           } else if (machinesOnBoard[adjacentIndex]!.icon === '🚑') {
             hasAmbulance = true;
-          }  else if (machinesOnBoard[adjacentIndex]!.icon === '🚆') {
-            hasTrain = true;
           }
         }
 

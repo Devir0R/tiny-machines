@@ -4,6 +4,8 @@ import type { Machine } from "../../machines/Machine";
 export class AlienTrain extends Design {
   name = "Alien Train";
   description = "each 🚆 adjacent to an 🛸, doubles adjacent 🚆 scoring.";
+  icon = "🛸🚆";
+  rarity: "common" | "legendary" = "legendary";
 
   score(_machinesOnBoard: (Machine | null)[]): number {
     return 0;

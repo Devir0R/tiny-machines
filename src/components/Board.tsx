@@ -22,12 +22,12 @@ export const Board = ({ machines, currentMachine, setMachineAtIndexTentatively, 
             setHoveredIndex(null)
           }}
         >
-            <div className={`grid grid-cols-8 gap-2 p-4 bg-gray-200 rounded-lg text-center`}>
+            <div className={`grid grid-cols-8 gap-2 p-4 bg-gray-200 rounded-lg text-center board`}>
                 {machines.map((machine, index) =>
                     <div className={`cell`} key={`machine-div-${index}`}>
                         <button
                         key={`button-machine-${index}`} 
-                        className={`w-full h-full flex items-center justify-center p-2 border border-gray-400 rounded transition ${isTentativelyPicked(index) ? 'bg-gray-500' : 'bg-white'} ${hoveredIndex === index && !machine ? 'bg-blue-100' : ''}`}
+                        className={`w-full h-full flex items-center justify-center p-2 border border-gray-400 rounded transition ${isTentativelyPicked(index) ? 'tentative-button' : ''} ${hoveredIndex === index && !machine ? 'bg-blue-100' : ''}`}
                         onMouseEnter={() => setHoveredIndex(index)}
                         onMouseLeave={() => setHoveredIndex(null)}
                         onClick={()=>{

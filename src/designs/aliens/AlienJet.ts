@@ -4,6 +4,8 @@ import type { Machine } from "../../machines/Machine";
 export class AlienJet extends Design {
   name = "Alien Jet";
   description = "for each ✈️ adjacent to an 🛸, if line with most different machines also has no repeating machine, double its points";
+  icon = "🛸✈️";
+  rarity: "common" | "legendary" = "legendary";
 
   score(_machinesOnBoard: (Machine | null)[]): number {
     return 0;
