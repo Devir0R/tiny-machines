@@ -2,7 +2,7 @@ import { Design } from "../Design";
 import type { Machine } from "../../machines/Machine";
 
 export class AlienTrain extends Design {
-  name = "AlienTrain";
+  name = "Alien Train";
   description = "each 🚆 adjacent to an 🛸, doubles adjacent 🚆 scoring.";
 
   score(_machinesOnBoard: (Machine | null)[]): number {

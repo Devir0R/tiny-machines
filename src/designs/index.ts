@@ -1,5 +1,5 @@
 // Pair Designs
-export { AmbulancopterSync } from "./pairs/AmbulancopterSync";
+export { AmbulancopterSync } from "./pairs/Ambulancopter";
 export { HighSpeedMedic } from "./pairs/HighSpeedMedic";
 export { ExplosiveHealing } from "./pairs/ExplosiveHealing";
 export { LotteryAmbulance } from "./pairs/LotteryAmbulance";
@@ -8,7 +8,7 @@ export { SkyWarriors } from "./pairs/SkyWarriors";
 export { ArmadoHelicopter } from "./pairs/ArmadoHelicopter";
 export { SpinningRotor } from "./pairs/SpinningRotor";
 export { SkylineCaravan } from "./pairs/SkylineCaravan";
-export { JetMissileBarrage } from "./pairs/JetMissileBarrage";
+export { FighterJet as JetMissileBarrage } from "./pairs/FighterJet";
 export { LuckyAce } from "./pairs/LuckyAce";
 export { SonicRail } from "./pairs/SonicRail";
 export { LotteryStrike } from "./pairs/LotteryStrike";

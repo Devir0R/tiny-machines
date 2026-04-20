@@ -2,7 +2,7 @@ import { Design } from "../Design";
 import type { Machine } from "../../machines/Machine";
 
 export class AlienJet extends Design {
-  name = "AlienJet";
+  name = "Alien Jet";
   description = "for each ✈️ adjacent to an 🛸, if line with most different machines also has no repeating machine, double its points";
 
   score(_machinesOnBoard: (Machine | null)[]): number {

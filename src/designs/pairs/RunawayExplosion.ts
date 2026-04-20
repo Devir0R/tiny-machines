@@ -2,7 +2,7 @@ import { Design } from "../Design";
 import type { Machine } from "../../machines/Machine";
 
 export class RunawayExplosion extends Design {
-  name = "RunawayExplosion";
+  name = "Runaway Explosion";
   description = "for each pair of 🚆 adjacent to an 🚀, gain 4 points";
 
   score(_machinesOnBoard: (Machine | null)[]): number {

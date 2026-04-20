@@ -1,4 +1,4 @@
-import { AmbulancopterSync } from "../pairs/AmbulancopterSync";
+import { AmbulancopterSync } from "../pairs/Ambulancopter";
 import { Ambulance } from "../../machines/Ambulance";
 import { Helicopter } from "../../machines/Helicopter";
 

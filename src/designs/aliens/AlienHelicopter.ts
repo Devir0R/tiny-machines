@@ -2,7 +2,7 @@ import { Design } from "../Design";
 import type { Machine } from "../../machines/Machine";
 
 export class AlienHelicopter extends Design {
-  name = "AlienHelicopter";
+  name = "Alien Helicopter";
   description = "for each 🚁 adjacent to an 🛸, an empty space around a 🚁, surrounded by at least four machines, gives additional 4 points";
 
   score(machinesOnBoard: (Machine | null)[]): number {

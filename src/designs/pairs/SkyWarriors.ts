@@ -2,7 +2,7 @@ import { Design } from "../Design";
 import type { Machine } from "../../machines/Machine";
 
 export class SkyWarriors extends Design {
-  name = "SkyWarriors";
+  name = "Sky Warriors";
   description = "for each pair of ✈️ adjacent to an 🚁, gain 4 points";
 
   score(_machinesOnBoard: (Machine | null)[]): number {

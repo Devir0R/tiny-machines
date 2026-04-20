@@ -2,7 +2,7 @@ import { Design } from "../Design";
 import { Machine } from "../../machines/Machine";
 
 export class AlienSlotMachine extends Design {
-  name = "AlienSlotMachine";
+  name = "Alien Slot Machine";
   description = "for each 🎰 adjacent to a 🛸, score that many points sqaured";
   score(machinesOnBoard: (Machine | null)[]): number {
     let score  = 0;

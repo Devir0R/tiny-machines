@@ -10,7 +10,7 @@ import { Machine } from "./Machine";
 export class SlotMachine extends Machine {
     constructor(index: number) {
         super(index);
-        this.name = "SlotMachine";
+        this.name = "Slot Machine";
         this.description = "for each type of machine with at least two, get squared points for the number of machines of that type around it.(1 for 1, 4 for 2 and 9 for 3 and so on)";
         this.icon = "🎰";
     }

@@ -2,7 +2,7 @@ import { Design } from "../Design";
 import type { Machine } from "../../machines/Machine";
 
 export class AlienMissile extends Design {
-  name = "AlienMissile";
+  name = "Alien Missile";
   description = "for each 🚀 adjacent to an 🛸, if all three non-air machines are around it, double its points";
 
   score(_machinesOnBoard: (Machine | null)[]): number {
