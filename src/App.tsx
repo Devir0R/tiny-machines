@@ -104,6 +104,7 @@ function App() {
   }
 
   function calculateScore() {
+
     // Reset all effects from previous turn
     for (let i = 0; i < machinesOnBoard.length; i++) {
       if (machinesOnBoard[i]) {
@@ -111,6 +112,9 @@ function App() {
       }
     }
 
+    for(const design of designs){
+      design.applyEffect(machinesOnBoard);
+    }
     // Apply effects (e.g., UFO marks adjacent machines for doubling)
     for (let i = 0; i < machinesOnBoard.length; i++) {
       if (machinesOnBoard[i]) {
@@ -125,6 +129,12 @@ function App() {
         newScore += machinesOnBoard[i]!.score(machinesOnBoard);
       }
     }
+
+        
+    for(const design of designs){
+      newScore += design.score(machinesOnBoard);
+    }
+
     setScore(newScore);
   }
 
