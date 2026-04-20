@@ -41,7 +41,7 @@ export function DesignCard({
       </div>
 
       {/* Name */}
-      <h3 className="text-lg text-center text-white mb-2 uppercase tracking-wide min-h-8">{name}</h3>
+      <h3 className="text-sm text-center text-white mb-1 uppercase tracking-wide">{name}</h3>
 
       {/* Description */}
       <p className="text-gray-300 text-[0.800rem] text-center mb-1 min-h-12 leading-tight">{description}</p>
