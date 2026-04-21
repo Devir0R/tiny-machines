@@ -1,6 +1,14 @@
 import { useState } from "react"
 import type { MACHINE } from "../interfaces/Machines";
 import type { Machine } from "../machines/Machine";
+import { useSound } from 'react-sounds';
+import trainSound from '../assets/train.mp3';
+import ufoSound from '../assets/ufo.mp3';
+import ambulanceSound from '../assets/ambulance.mp3';
+import helicopterSound from '../assets/helicopter.mp3';
+import jetSound from '../assets/jet.mp3';
+import missileSound from '../assets/missile.mp3';
+import slotMachineSound from '../assets/slotMachine.mp3';
 
 interface BoardProps {
   machines: (Machine | null)[];
@@ -13,10 +21,38 @@ interface BoardProps {
 
 export const Board = ({ machines, currentMachine, setMachineAtIndexTentatively, tentativelyPlacedMachines ,onBoardHoverChange, placingFromDesign}: BoardProps) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const {play : playTrain} = useSound(trainSound);
+  const {play : playAmbulance} = useSound(ambulanceSound);
+  const {play : playUfo} = useSound(ufoSound);
+  const {play : playJet} = useSound(jetSound);
+  const {play : playHelicopter} = useSound(helicopterSound);
+  const {play : playMssile} = useSound(missileSound);
+  const {play : playSlotMachine} = useSound(slotMachineSound);
 
   console.log("current machine", currentMachine);
   console.log("current design machine", placingFromDesign);
   
+    function playMachineSounds(machine?: MACHINE | null) {
+        if(!machine) return;
+
+        switch(machine){
+            case "✈️": playJet();
+            break;
+            case "🎰": playSlotMachine();
+            break;
+            case "🚀": playMssile();
+            break;
+            case "🚁": playHelicopter();
+            break;
+            case "🚆": playTrain();
+            break;
+            case "🚑": playAmbulance();
+            break;
+            case "🛸": playUfo();
+            break;
+        }
+    }
+
     return (
         <div
           className="relative aspect-square w-full max-w-md mx-auto mt-10"
@@ -40,6 +76,7 @@ export const Board = ({ machines, currentMachine, setMachineAtIndexTentatively, 
                             } else if (placingFromDesign) {
                                 setMachineAtIndexTentatively(index, placingFromDesign.machineIcon as MACHINE)
                             }
+                            playMachineSounds((currentMachine || placingFromDesign?.machineIcon) as MACHINE);
                         }}>
                             {machine?.icon ?? 
                             ((currentMachine && hoveredIndex === index)?

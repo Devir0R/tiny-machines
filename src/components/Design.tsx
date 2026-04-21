@@ -1,5 +1,8 @@
 
 import type { Design } from "../designs/Design";
+import { useSound } from 'react-sounds';
+import designTouch from '../assets/designTouch.mp3';
+import machineTouch from '../assets/touchMachine.mp3';
 
 interface DesignProps {
   design: Design;
@@ -12,6 +15,10 @@ export function DesignCard({
   onClick,
   onMachineClick 
 }: DesignProps) {
+
+  const {play : playTouchDesign} = useSound(designTouch);
+  const {play : playMachineDesign} = useSound(machineTouch);
+  
   const rarityColors = {
     common: "from-gray-600 to-gray-700 border-gray-500",
     legendary: "from-yellow-600 to-yellow-700 border-yellow-400"
@@ -28,6 +35,7 @@ export function DesignCard({
         transition-shadow duration-300 hover:shadow-2xl ${rarityGlow[design.rarity]} 
         ${onClick ? 'cursor-pointer group' : 'group'}`}
       onClick={onClick}
+      onMouseEnter={()=>playTouchDesign()}
     >
       <div className="transition-transform duration-300 group-hover:scale-105">
 
@@ -51,6 +59,7 @@ export function DesignCard({
             key={machineIcon}
             className="bg-black/50 hover:bg-black/70 text-white rounded px-2 py-1 text-sm transition-colors"
             onClick={() => onMachineClick(machineIcon)}
+            onMouseEnter={()=>playMachineDesign()}
           >
             {machineIcon}
           </button>

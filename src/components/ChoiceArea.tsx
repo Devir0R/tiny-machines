@@ -2,8 +2,10 @@ import { DesignCard } from "./Design";
 import type { MACHINE } from "../interfaces/Machines";
 import type { Machine } from "../machines/Machine";
 import type { Design } from "../designs/Design";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { MachineFactory } from "../machines/MachineFactory";
+import { useSound } from 'react-sounds';
+import machineTouch from '../assets/touchMachine.mp3';
 
 interface ChoiceAreaProps {
   pickableDesign: Design | null;
@@ -19,6 +21,7 @@ export const ChoiceArea = ({ pickableDesign, pickableMachines, addDesign, setCur
     const [showMachineDescription, setShowMachineDescription] = useState(false)
     const [hoveredDom, setHoveredDom] = useState<DOMRect | null>(null)
     const [hoveredMachine,setHoveredMachine] = useState<Machine|null>();
+    const {play: playMachineTouch} = useSound(machineTouch);
       
     useEffect(()=>{
         setShowError(false);
@@ -50,6 +53,7 @@ export const ChoiceArea = ({ pickableDesign, pickableMachines, addDesign, setCur
                 }}
 
                 onMouseEnter={(e)=>{
+                  playMachineTouch();
                   setHoveredDom(e.currentTarget.getBoundingClientRect());
                   setShowMachineDescription(true);
                   setHoveredMachine(MachineFactory.create(machine,0))
