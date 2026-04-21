@@ -3,7 +3,7 @@ import { DesignCard } from "./Design";
 
 interface DesignProps {
   designs: Design[];
-  onMachineClick: (design: Design, designIndex: number, machineIcon: string) => void;
+  onMachineClick: (designIndex: number, machineIcon: string) => void;
 }
 
 export const DesignsArea = ({ designs, onMachineClick }: DesignProps) => {
@@ -16,7 +16,7 @@ export const DesignsArea = ({ designs, onMachineClick }: DesignProps) => {
             <DesignCard
               key={index}
               design={design}
-              onMachineClick={(machineIcon) => onMachineClick(design, index, machineIcon)}
+              onMachineClick={(machineIcon) => onMachineClick(index, machineIcon)}
             />
           ))}
         </div>

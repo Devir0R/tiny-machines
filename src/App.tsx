@@ -189,7 +189,7 @@ function App() {
     return true;
   }
 
-  const onMachineClick = (design: Design, designIndex: number, machineIcon: string) => {
+  const onMachineClick = (designIndex: number, machineIcon: string) => {
     setPlacingFromDesign({ designIndex, machineIcon });
     setCurrentMachine(-1); // Use 0 for design placement
   };
