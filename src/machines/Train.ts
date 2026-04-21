@@ -15,12 +15,20 @@ export class Train extends Machine {
     }
 
     getBaseScore(machinesOnBoard: (Machine | null)[]): number {
-        let connectedTrains = 0;
+        let connectedTrains = this.scoringIndexes(machinesOnBoard);
+
+        return connectedTrains.size;
+    }
+
+    getHighlightedIndexes(machinesOnBoard: (Machine | null)[]): number[]{
+        return [...this.scoringIndexes(machinesOnBoard)];
+    }
+
+    scoringIndexes(machinesOnBoard: (Machine | null)[]) : Set<number>{
 
         const visited = new Set<number>();
 
         const dfs = (index: number) => {
-            visited.add(index);
             const currentMachine = machinesOnBoard[index];
             if (!currentMachine || currentMachine.icon !== this.icon) {
                 return;
@@ -34,9 +42,7 @@ export class Train extends Machine {
                 return;
                 // If there are more than 2 adjacent Trains, this Train scores 0 points, and the search stops.
             }
-            else {
-                connectedTrains++;
-            }        
+            else visited.add(index);
 
             for (const adjacentIndex of directionsWithTrains) {
                 if (!visited.has(adjacentIndex)) {
@@ -45,8 +51,6 @@ export class Train extends Machine {
             }
         };
         dfs(this.index);
-        
-
-        return connectedTrains;
+        return visited;
     }
 }

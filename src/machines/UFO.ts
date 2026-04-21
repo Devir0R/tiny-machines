@@ -18,6 +18,15 @@ export class UFO extends Machine {
         return 0;
     }
 
+    getHighlightedIndexes(machinesOnBoard: (Machine | null)[]): number[] {
+        return [
+            this.Up(this.index, machinesOnBoard),
+            this.Down(this.index, machinesOnBoard),
+            this.Right(this.index, machinesOnBoard),
+            this.Left(this.index, machinesOnBoard)
+        ].filter(index=>index>=0);
+    }
+
     applyEffects(machinesOnBoard: (Machine | null)[]): void {
         const adjacentIndexes = [
             this.Up(this.index, machinesOnBoard),

@@ -67,7 +67,11 @@ export const Board = ({ machines, currentMachine, setMachineAtIndexTentatively, 
                     <div className={`cell`} key={`machine-div-${index}`}>
                         <button
                         key={`button-machine-${index}`} 
-                        className={`w-full h-full flex items-center justify-center p-2 border border-gray-400 rounded transition ${isTentativelyPicked(index) ? 'tentative-button' : ''} ${hoveredIndex === index && !machine ? 'bg-blue-100' : ''}`}
+                        className={`w-full h-full flex items-center justify-center
+                             p-2 border border-gray-400 rounded transition 
+                             ${isTentativelyPicked(index) ? 'tentative-button' : ''} 
+                             ${hoveredIndex === index && !machine ? 'bg-blue-100' : ''}
+                             ${hoveredIndex && machines[hoveredIndex]?.getHighlightedIndexes(machines).includes(index) ? 'light-sp-purple': ''}`}
                         onMouseEnter={() => setHoveredIndex(index)}
                         onMouseLeave={() => setHoveredIndex(null)}
                         onClick={()=>{

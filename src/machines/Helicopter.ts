@@ -15,10 +15,16 @@ export class Helicopter extends Machine {
     }
 
     getBaseScore(machinesOnBoard: (Machine | null)[]): number {
-        let score = 0;
-        const indexesAround = this.indexesAround(this.index, machinesOnBoard);
+        return this.scoringIndexes(machinesOnBoard).length * 3;
+    }
 
-        for (const index of indexesAround) {
+    getHighlightedIndexes(machinesOnBoard: (Machine | null)[]): number[]{
+        return this.scoringIndexes(machinesOnBoard);
+    }
+
+    scoringIndexes(machinesOnBoard: (Machine | null)[]) : number[]{
+        return this.indexesAround(this.index, machinesOnBoard)
+        .filter(index=>{
             if (index !== -1 && machinesOnBoard[index] === null) {
                 const surroundingIndexes = this.indexesAround(index, machinesOnBoard);
                 let surroundingMachinesCount = 0;
@@ -27,12 +33,9 @@ export class Helicopter extends Machine {
                         surroundingMachinesCount++;
                     }
                 }
-                if (surroundingMachinesCount >= 3) {
-                    score += 3;
-                }
+                if (surroundingMachinesCount >= 3) return true;
             }
-        }
-
-        return score;
-    }
+            return false;
+        });
+    }  
 }

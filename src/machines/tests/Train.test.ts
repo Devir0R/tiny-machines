@@ -3,13 +3,23 @@ import { Train } from "../Train";
 const createEmptyBoard = () => Array(9).fill(null) as (any | null)[];
 
 describe("Train", () => {
-  test("scores 9 points when exactly two adjacent trains are connected", () => {
+  test("scores 3 points when exactly two adjacent trains are connected", () => {
     const board = createEmptyBoard();
     board[4] = new Train(4);
     board[1] = new Train(1);
     board[7] = new Train(7);
 
     expect((board[4] as Train).getBaseScore(board)).toBe(3);
+  });
+
+  test("scores 0 points when exactly three adjacent trains are connected", () => {
+    const board = createEmptyBoard();
+    board[4] = new Train(4);
+    board[1] = new Train(1);
+    board[7] = new Train(7);
+    board[3] = new Train(3);
+
+    expect((board[4] as Train).getBaseScore(board)).toBe(0);
   });
 
   test("returns zero unless at most two adjacent trains are present", () => {

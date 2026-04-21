@@ -7,6 +7,8 @@ import { Machine } from "./Machine";
  * - Scoring: Scores 2 point for each adjacent machine that is an air machine (Jet, UFO, Helicopter)
  */
 export class Ambulance extends Machine {
+    static readonly airMachines = new Set<string>(["✈️", "🛸","🚁"]);
+
     constructor(index: number) {
         super(index);
         this.name = "Ambulance";
@@ -15,14 +17,17 @@ export class Ambulance extends Machine {
     }
 
     getBaseScore(machinesOnBoard: (Machine | null)[]): number {
-        let score = 0;
-        const airUnits = new Set<string>(["✈️", "🛸","🚁"]);
+        return this.scoringIndexes(machinesOnBoard).length * 2;
+    }
 
-        for(const index of this.indexesAround(this.index, machinesOnBoard)) {
-            if (index !== -1 && machinesOnBoard[index] && airUnits.has(machinesOnBoard[index]!.icon)) {
-                score += 2;
-            }
-        }
-        return score;
+    getHighlightedIndexes(machinesOnBoard: (Machine | null)[]): number[]{
+        return this.scoringIndexes(machinesOnBoard);
+    }
+
+    scoringIndexes(machinesOnBoard: (Machine | null)[]) : number[]{
+        return this.indexesAround(this.index, machinesOnBoard).filter(index=>{
+            return index !== -1 && machinesOnBoard[index] 
+                && Ambulance.airMachines.has(machinesOnBoard[index]!.icon);
+        })
     }
 }

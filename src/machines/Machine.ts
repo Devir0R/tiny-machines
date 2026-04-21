@@ -14,6 +14,10 @@ export abstract class Machine {
         this.icon = "✈️";
     }
 
+    getHighlightedIndexes(_machinesOnBoard: (Machine | null)[]): number[]{
+        return [];
+    }
+
     abstract getBaseScore(machinesOnBoard: (Machine | null)[]): number;
 
     applyEffects(_machinesOnBoard: (Machine | null)[]): void {

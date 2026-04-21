@@ -16,32 +16,29 @@ export class Jet extends Machine {
 
 
     getBaseScore(machinesOnBoard: (Machine | null)[]): number {
-        let score = 0;
+        const scoringIndexes = this.scoringIndexes(machinesOnBoard);
+
+        return scoringIndexes.length * scoringIndexes.length;
+    }
+
+    getHighlightedIndexes(machinesOnBoard: (Machine | null)[]): number[]{
+        return this.scoringIndexes(machinesOnBoard);
+    }
+
+    scoringIndexes(machinesOnBoard: (Machine | null)[]) : number[]{
         const directions = [this.Up, this.Down, this.Right, this.Left];
-        for (const direction of directions) {
+        const indexesEachDirection : number[][] = directions.map(direction=>{
             let currentIndex = direction(this.index, machinesOnBoard);
-            const seenMachines = new Set<string>();
-            let currentLength = 0;
-
-            while (currentIndex !== -1) {
-                if (machinesOnBoard[currentIndex] === null) {
-                    break;
-                }
-
-                const machine = machinesOnBoard[currentIndex];
-                if (machine && !seenMachines.has(machine.icon)) {
-                    seenMachines.add(machine.icon);
-                    currentLength+=1;
-                } else {
-                    break;
-                }
-
+            const indexesInDirection : number[] =[]
+            while (currentIndex !== -1 && machinesOnBoard[currentIndex] !== null) {
+                indexesInDirection.push(currentIndex)
                 currentIndex = direction(currentIndex, machinesOnBoard);
             }
-
-            score = Math.max(score, currentLength);
-        }
-
-        return score * score;
+            return indexesInDirection;
+        });
+        return indexesEachDirection.reduce((acc,curr)=>{
+            if(new Set(acc).size < new Set(curr).size) return curr;
+            else return acc;
+        }, []);
     }
 }

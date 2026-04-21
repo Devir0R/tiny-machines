@@ -7,6 +7,8 @@ import { Machine } from "./Machine";
  * - Scoring: Scores 2 points for each machine around it that is not an air unit (Train, Slot Machine, Ambulance)
  */
 export class Missile extends Machine {
+    static readonly nonAirMachines = new Set<string>(["🚆", "🎰", "🚑"]);
+
     constructor(index: number) {
         super(index);
         this.name = "Missile";
@@ -16,16 +18,17 @@ export class Missile extends Machine {
 
     
     getBaseScore(machinesOnBoard: (Machine | null)[]): number {
-        let score = 0;
-        const airUnits = new Set<string>(["🚆", "🎰", "🚑"]);
+        return this.scoringIndexes(machinesOnBoard).length * 2;
+    }
 
-        const indexesAround = this.indexesAround(this.index, machinesOnBoard);
+    getHighlightedIndexes(machinesOnBoard: (Machine | null)[]): number[]{
+        return this.scoringIndexes(machinesOnBoard);
+    }
 
-        for(const index of indexesAround) {
-            if (index !== -1 && machinesOnBoard[index] && airUnits.has(machinesOnBoard[index]!.icon)) {
-                score+=2;
-            }
-        }
-        return score;
+    scoringIndexes(machinesOnBoard: (Machine | null)[]) : number[]{
+        return this.indexesAround(this.index, machinesOnBoard).filter(index=>{
+            return index !== -1 && machinesOnBoard[index] 
+                && Missile.nonAirMachines.has(machinesOnBoard[index]!.icon);
+        })
     }
 }

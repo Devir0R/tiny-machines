@@ -15,27 +15,42 @@ export class SlotMachine extends Machine {
         this.icon = "🎰";
     }
 
-
-
-    getBaseScore(machinesOnBoard: (Machine | null)[]): number {
-       const machineCount: Record<MACHINE, number> = {} as Record<MACHINE, number>;
-         for(const index of this.indexesAround(this.index, machinesOnBoard)) {
-            if (machinesOnBoard[index] !== null) {
-                const machine = machinesOnBoard[index]!;
-                machineCount[machine.icon] = (machineCount[machine.icon] || 0) + 1;
+    getHighlightedIndexes(machinesOnBoard: (Machine | null)[]): number[] {
+        const machineTypeIndexes = this.getMachineCount(machinesOnBoard);
+        const indexes = [] as number[];
+        for (const key of Object.keys(machineTypeIndexes)) {
+            const typeIndexes = machineTypeIndexes[key as MACHINE];
+            if (typeIndexes.length > 1) {
+                indexes.push(...typeIndexes)
             }
         }
+        return indexes;
+    }
 
+    getBaseScore(machinesOnBoard: (Machine | null)[]): number {
+       const machineTypeIndexes = this.getMachineCount(machinesOnBoard);
         let score = 0;
-        for (const key of Object.keys(machineCount)) {
-            const count = machineCount[key as MACHINE];
-            if (count > 1) {
-                score += count * count;
+        for (const key of Object.keys(machineTypeIndexes)) {
+            const typeIndexes = machineTypeIndexes[key as MACHINE];
+            if (typeIndexes.length > 1) {
+                score += typeIndexes.length * typeIndexes.length;
             }
         }
 
         return score;
 
+    }
+
+    getMachineCount(machinesOnBoard: (Machine | null)[]) :  Record<MACHINE, number[]>{
+       const machineTypeIndexes: Record<MACHINE, number[]> = {} as Record<MACHINE, number[]>;
+         for(const index of this.indexesAround(this.index, machinesOnBoard)) {
+            if (machinesOnBoard[index] !== null) {
+                const machine = machinesOnBoard[index]!;
+                if(machineTypeIndexes[machine.icon]) machineTypeIndexes[machine.icon].push(index);
+                else machineTypeIndexes[machine.icon]= [index];
+            }
+        }
+        return machineTypeIndexes;
     }
 
 }

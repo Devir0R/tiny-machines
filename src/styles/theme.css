@@ -2,7 +2,8 @@
 
 :root {
   --steampunk-purple-18: rgb(34 31 46);
-  --steampunk-purple-44: rgb(79 72 107);
+  --steampunk-purple-44: rgb(110 72 107);
+  --steampunk-purple-56: rgb(79 93 138);
   --steampunk-purple-30: rgb(57, 52, 77);
   --font-size: 16px;
   --background: rgb(205 152 86);
@@ -178,8 +179,14 @@
 
   }
 
-  .medium-sp-purple{
+  .highlighted {
     background-color: var(--steampunk-purple-44);
+    opacity: '70%';
+
+  }
+
+  .medium-sp-purple{
+    background-color: var(--steampunk-purple-30);
 
   }
 
