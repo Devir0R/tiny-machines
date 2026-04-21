@@ -21,8 +21,6 @@
   --muted-foreground: #717182;
   --accent: #e9ebef;
   --accent-foreground: #030213;
-  --destructive: #d4183d;
-  --destructive-foreground: #ffffff;
   --border: rgba(0, 0, 0, 0.1);
   --input: transparent;
   --input-background: #f3f3f5;
@@ -60,8 +58,7 @@
   --muted-foreground: oklch(0.708 0 0);
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
+
   --border: oklch(0.269 0 0);
   --input: oklch(0.269 0 0);
   --ring: oklch(0.439 0 0);
@@ -92,8 +89,6 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-input-background: var(--input-background);
@@ -196,5 +191,90 @@
     font-size: var(--text-base);
     font-weight: var(--font-weight-normal);
     line-height: 1.5;
+  }
+
+  /* Starting Scene Styles */
+  .starting-scene-container {
+    background-color: var(--steampunk-purple-18);
+  }
+
+  .starting-scene-wrapper {
+    background-color: var(--secondary-background);
+    border: 3px solid var(--card);
+  }
+
+  .starting-scene-header {
+    background-color: var(--background);
+    border-bottom: 3px solid var(--card);
+  }
+
+  .starting-scene-header h1 {
+    color: var(--steampunk-purple-18);
+  }
+
+  .starting-scene-header p {
+    color: #ffffff;
+  }
+
+  .starting-scene-tabs {
+    border-bottom: 2px solid var(--card);
+  }
+
+  .starting-scene-tab-active {
+    background-color: var(--background);
+    color: #ffffff;
+    border-bottom: 4px solid var(--card);
+  }
+
+  .starting-scene-tab-inactive {
+    background-color: var(--secondary-background);
+    color: #ffffff;
+  }
+
+  .starting-scene-tab-inactive:hover {
+    background-color: var(--background);
+  }
+
+  .starting-scene-content {
+    background-color: var(--secondary-background);
+    color: #ffffff;
+  }
+
+  .starting-scene-section-title {
+    color: var(--card);
+  }
+
+  .starting-scene-machine-card {
+    background-color: var(--secondary-foreground);
+    border-left: 4px solid var(--card);
+  }
+
+  .starting-scene-machine-name {
+    color: var(--card);
+  }
+
+  .starting-scene-machine-desc {
+    color: #ffffff;
+  }
+
+  .starting-scene-button {
+    background-color: var(--card);
+    color: var(--steampunk-purple-18);
+    border: 2px solid var(--background);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .starting-scene-button:hover {
+    background-color: var(--background);
+    transform: scale(1.05);
+  }
+
+  .starting-scene-button:active {
+    transform: scale(0.95);
+  }
+
+  .starting-scene-footer {
+    background-color: var(--secondary-background);
+    border-top: 2px solid var(--card);
   }
 }

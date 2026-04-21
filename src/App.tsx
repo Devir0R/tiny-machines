@@ -4,6 +4,7 @@ import { MACHINE } from "./interfaces/Machines"
 import { ChoiceArea } from "./components/ChoiceArea"
 import { DesignsArea } from "./components/DesignsArea"
 import { Info } from "./components/Info"
+import { StartingScene } from "./components/StartingScene"
 import { Machine } from "./machines/Machine"
 import { MachineFactory } from "./machines/MachineFactory"
 import { Design } from "./designs/Design"
@@ -250,7 +251,10 @@ function App() {
       </div>
       
       :
-        <button onClick={() => setStarted(true)}>Start Game</button>
+        <StartingScene onStartGame={() => {
+          setStarted(true)
+          generatePicks()
+        }} />
       }
     </>
   )
