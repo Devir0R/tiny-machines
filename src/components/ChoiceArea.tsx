@@ -21,7 +21,7 @@ export const ChoiceArea = ({ pickableDesign, pickableMachines, addDesign, setCur
     const [showMachineDescription, setShowMachineDescription] = useState(false)
     const [hoveredDom, setHoveredDom] = useState<DOMRect | null>(null)
     const [hoveredMachine,setHoveredMachine] = useState<Machine|null>();
-    const {play: playMachineTouch} = useSound(machineTouch);
+    const {play: playMachineTouch} = useSound(machineTouch, {volume: .3});
       
     useEffect(()=>{
         setShowError(false);

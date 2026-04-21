@@ -22,12 +22,12 @@ interface BoardProps {
 export const Board = ({ machines, currentMachine, setMachineAtIndexTentatively, tentativelyPlacedMachines ,onBoardHoverChange, placingFromDesign}: BoardProps) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
   const {play : playTrain} = useSound(trainSound);
-  const {play : playAmbulance} = useSound(ambulanceSound);
-  const {play : playUfo} = useSound(ufoSound);
+  const {play : playAmbulance} = useSound(ambulanceSound, {volume: .2});
+  const {play : playUfo} = useSound(ufoSound, {volume: .2});
   const {play : playJet} = useSound(jetSound);
   const {play : playHelicopter} = useSound(helicopterSound);
-  const {play : playMssile} = useSound(missileSound);
-  const {play : playSlotMachine} = useSound(slotMachineSound);
+  const {play : playMssile} = useSound(missileSound, {volume: .2});
+  const {play : playSlotMachine} = useSound(slotMachineSound, {volume: .2});
 
   console.log("current machine", currentMachine);
   console.log("current design machine", placingFromDesign);

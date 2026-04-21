@@ -17,7 +17,7 @@ export function DesignCard({
 }: DesignProps) {
 
   const {play : playTouchDesign} = useSound(designTouch);
-  const {play : playMachineDesign} = useSound(machineTouch);
+  const {play : playMachineDesign} = useSound(machineTouch, {volume: .3});
   
   const rarityColors = {
     common: "from-gray-600 to-gray-700 border-gray-500",
