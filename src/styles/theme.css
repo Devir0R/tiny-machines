@@ -277,4 +277,47 @@
     background-color: var(--secondary-background);
     border-top: 2px solid var(--card);
   }
+
+  /* End Game Styles */
+  .end-game-container {
+    background-color: var(--secondary-background);
+  }
+
+  .end-game-card {
+    background-color: var(--secondary-foreground);
+    width: 100%;
+  }
+
+  .end-game-card h2 {
+    color: var(--card);
+  }
+
+  .end-game-score-box {
+    background-color: var(--steampunk-purple-18);
+    border: 2px solid var(--card);
+  }
+
+  .end-game-score-box p:nth-child(1) {
+    color: #ffffff;
+  }
+
+  .end-game-score-box p:nth-child(2) {
+    color: var(--card);
+  }
+
+  .end-game-button {
+    background-color: var(--card);
+    color: var(--steampunk-purple-18);
+    border: 2px solid var(--background);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .end-game-button:hover {
+    background-color: var(--background);
+    color: var(--steampunk-purple-18);
+  }
+
+  .end-game-button:active {
+    transform: scale(0.95);
+  }
 }

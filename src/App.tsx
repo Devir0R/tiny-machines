@@ -5,6 +5,7 @@ import { ChoiceArea } from "./components/ChoiceArea"
 import { DesignsArea } from "./components/DesignsArea"
 import { Info } from "./components/Info"
 import { StartingScene } from "./components/StartingScene"
+import { EndGameScene } from "./components/EndGameScene"
 import { Machine } from "./machines/Machine"
 import { MachineFactory } from "./machines/MachineFactory"
 import { Design } from "./designs/Design"
@@ -21,6 +22,7 @@ function App() {
   const [score, setScore] = useState<number>(0)
   const [turnsLeft, setTurnsLeft] = useState<number>(20)
   const [started, setStarted] = useState<boolean>(false)
+  const [gameEnded, setGameEnded] = useState<boolean>(false)
   const [confirmed, setConfirmed] = useState<boolean>(false)
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
   const [isBoardHovered, setIsBoardHovered] = useState(false)
@@ -32,12 +34,7 @@ function App() {
       if(turnsLeft > 0) {
         proceedTurn()
       } else {
-        alert(`Game Over! Your final score is ${score}`)
-        setStarted(false)
-        setScore(0)
-        setTurnsLeft(20)
-        setDesigns([])
-        setMachinesOnBoard(Array(64).fill(null))
+        setGameEnded(true)
       }
     }
   }, [started,turnsLeft])
@@ -205,17 +202,36 @@ function App() {
         <div className="grid grid-rows-[50%_45%] gap-4">
           <DesignsArea designs={designs} onMachineClick={onMachineClick}/>
           <div className="flex flex-col items-center">
-            <ChoiceArea 
-              pickableDesign={pickableDesign} 
-              tentativelyPlacedMachines={tentativelyPlacedMachines}  
-              pickableMachines={pickableMachines} 
-              addDesign={addDesign} 
-              setCurrentMachine={(index:number)=>{
-                setPlacingFromDesign(null);
-                setCurrentMachine(index);
-              }}
-              currentMachine={currentMachine}
-              />              
+            {gameEnded ? (
+              <EndGameScene 
+                score={score}
+                onPlayAgain={() => {
+                  setGameEnded(false)
+                  setStarted(true)
+                  setScore(0)
+                  setTurnsLeft(20)
+                  setDesigns([])
+                  setMachinesOnBoard(Array(64).fill(null))
+                  setPickableMachines([null, null])
+                  setCurrentMachine(-1)
+                  setTentativelyPlacedMachines([null, null])
+                  setPlacingFromDesign(null)
+                  generatePicks()
+                }}
+              />
+            ) : (
+              <ChoiceArea 
+                pickableDesign={pickableDesign} 
+                tentativelyPlacedMachines={tentativelyPlacedMachines}  
+                pickableMachines={pickableMachines} 
+                addDesign={addDesign} 
+                setCurrentMachine={(index:number)=>{
+                  setPlacingFromDesign(null);
+                  setCurrentMachine(index);
+                }}
+                currentMachine={currentMachine}
+              />
+            )}              
           </div>
 
         </div>
