@@ -11,7 +11,7 @@ export const StartingScene = ({ onStartGame }: StartingSceneProps) => {
 
   return (
     <div className="starting-scene-container fixed inset-0 flex items-center justify-center p-4">
-      <div className="starting-scene-wrapper max-w-4xl w-full rounded-lg shadow-2xl overflow-hidden">
+      <div className="starting-scene-wrapper max-w-[60vw] w-full rounded-lg shadow-2xl overflow-hidden">
         {/* Header */}
         <div className="starting-scene-header p-8 text-center">
           <h1 className="text-5xl font-bold mb-2">Tiny Machines</h1>
@@ -55,7 +55,7 @@ export const StartingScene = ({ onStartGame }: StartingSceneProps) => {
         </div>
 
         {/* Content Area */}
-        <div className="starting-scene-content p-8 max-h-96 overflow-y-auto">
+        <div className="starting-scene-content p-8 max-h-[50vh] overflow-y-auto">
           {/* Rules Tab */}
           {activeTab === "rules" && (
             <div className="space-y-4">

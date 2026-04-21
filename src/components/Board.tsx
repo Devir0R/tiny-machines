@@ -55,7 +55,7 @@ export const Board = ({ machines, currentMachine, setMachineAtIndexTentatively, 
 
     return (
         <div
-          className="relative aspect-square w-full max-w-md mx-auto mt-10"
+          className="relative aspect-square w-full max-w-[30vw] mx-auto mt-10"
           onMouseEnter={() => onBoardHoverChange(true)}
           onMouseLeave={() => {
             onBoardHoverChange(false)

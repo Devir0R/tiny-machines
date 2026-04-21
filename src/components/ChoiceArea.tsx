@@ -27,13 +27,13 @@ export const ChoiceArea = ({ pickableDesign, pickableMachines, addDesign, setCur
         setShowError(false);
     },[pickableDesign,currentMachine,pickableMachines,tentativelyPlacedMachines])
     return (
-    <div className="rounded-sm choice-area row-span-1 p-1 text-center flex flex-row items-center max-w-md">
+    <div className="rounded-sm choice-area row-span-1 p-1 text-center flex flex-row items-center max-w-[30vw]">
         <div>
             <h2 className="text-xl font-bold mb-4">Choose 2 Machine or a Design</h2>
             {showsError && <p className="text-red-500">you can't have more than 5 designs.</p>}
 
         </div>
-      <div className="interactable-area flex flex-row items-center m-10 outline-2 outline-dashed outline-gray-400 p-4 rounded-lg max-w-sm">
+      <div className="interactable-area flex flex-row items-center m-10 outline-2 outline-dashed outline-gray-400 p-4 rounded-lg max-w-[20vw]">
         <div className="grid gap-4 mb-1">
           {pickableDesign && 
             <DesignCard 
@@ -74,7 +74,7 @@ export const ChoiceArea = ({ pickableDesign, pickableMachines, addDesign, setCur
 
     {showMachineDescription && hoveredDom &&(
           <div
-            className="text-white fixed z-50 pointer-events-none rounded-sm p-1 text-sm opacity-80 info-rec max-w-30"
+            className="text-white fixed z-50 pointer-events-none rounded-sm p-1 text-sm opacity-80 info-rec max-w-[8vw]"
             style={{ left: hoveredDom.x  , top: hoveredDom.bottom , translate: '-2rem'}}
           >
             {hoveredMachine?.description}

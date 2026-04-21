@@ -50,7 +50,7 @@ export function DesignCard({
       <h3 className="text-sm text-center text-white mb-1 uppercase tracking-wide">{design.name}</h3>
 
       {/* Description */}
-      <p className="text-gray-300 text-[0.800rem] text-center mb-2 min-h-12 leading-tight">{design.description}</p>
+      <p className="text-gray-300 text-[0.800rem] text-center mb-2 min-h-[10vh] leading-tight">{design.description}</p>
 
       {/* Machine Buttons */}
       <div className="flex justify-center space-x-2">
