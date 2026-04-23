@@ -44,7 +44,7 @@ export const Board = ({ machines, currentMachine, setMachineAtIndexTentatively, 
         >
             <div className={`grid grid-cols-8 gap-2 p-4 bg-gray-200 rounded-lg text-center board`}>
                 {machines.map((machine, index) =>
-                    <div className={`cell`} key={`machine-div-${index}`}>
+                    <div className={`cell relative`} key={`machine-div-${index}`}>
                         <button
                         key={`button-machine-${index}`} 
                         className={`w-full h-full flex items-center justify-center
@@ -71,6 +71,11 @@ export const Board = ({ machines, currentMachine, setMachineAtIndexTentatively, 
                                     :
                                     "󠀠")}
                         </button>
+                        {hoveredIndex === index && machine && (
+                            <div className="absolute top-0 right-0 text-xs font-bold text-yellow-600 bg-yellow-100 rounded px-1">
+                                +{machine.score(machines)}
+                            </div>
+                        )}
                     </div>
                 )}
             </div>
