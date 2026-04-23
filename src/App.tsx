@@ -390,6 +390,71 @@ function App() {
     return Math.max(0, scoreWith - scoreWithout);
   }
 
+  function calculateDesignPotentialScore(design: Design): number {
+    // Calculate score with this design added
+    const tempDesigns = [...designs, design];
+    
+    // Reset effects
+    for (let i = 0; i < machinesOnBoard.length; i++) {
+      if (machinesOnBoard[i]) {
+        machinesOnBoard[i]!.resetEffects();
+      }
+    }
+    
+    for(const d of tempDesigns){
+      d.applyEffect(machinesOnBoard);
+    }
+    
+    for (let i = 0; i < machinesOnBoard.length; i++) {
+      if (machinesOnBoard[i]) {
+        machinesOnBoard[i]!.applyEffects(machinesOnBoard);
+      }
+    }
+    
+    let scoreWith = 0;
+    for (let i = 0; i < machinesOnBoard.length; i++) {
+      if (machinesOnBoard[i]) {
+        scoreWith += machinesOnBoard[i]!.score(machinesOnBoard);
+      }
+    }
+    
+    for(const d of tempDesigns){
+      scoreWith += d.score(machinesOnBoard);
+    }
+
+    // Calculate score without this design
+    let scoreWithout = 0;
+    
+    // Reset effects on original board
+    for (let i = 0; i < machinesOnBoard.length; i++) {
+      if (machinesOnBoard[i]) {
+        machinesOnBoard[i]!.resetEffects();
+      }
+    }
+    
+    for(const d of designs){
+      d.applyEffect(machinesOnBoard);
+    }
+    
+    for (let i = 0; i < machinesOnBoard.length; i++) {
+      if (machinesOnBoard[i]) {
+        machinesOnBoard[i]!.applyEffects(machinesOnBoard);
+      }
+    }
+    
+    for (let i = 0; i < machinesOnBoard.length; i++) {
+      if (machinesOnBoard[i]) {
+        scoreWithout += machinesOnBoard[i]!.score(machinesOnBoard);
+      }
+    }
+    
+    for(const d of designs){
+      scoreWithout += d.score(machinesOnBoard);
+    }
+
+    return Math.max(0, scoreWith - scoreWithout);
+  }
+
   const addDesign = (design: Design) => {
     if(designs.length >= 5) return false;
     setDesigns([...designs, design])
@@ -420,7 +485,7 @@ function App() {
       started ? 
       <div className="grid grid-cols-[57%_40%] gap-4" onMouseMove={(event) => setMousePos({ x: event.clientX, y: event.clientY })}>
         <div className="grid grid-rows-[50%_45%] gap-4">
-          <DesignsArea designs={designs} onMachineClick={onMachineClick}/>
+          <DesignsArea designs={designs} onMachineClick={onMachineClick} calculateDesignPotentialScore={calculateDesignPotentialScore}/>
           <div className="flex flex-col items-center">
             {gameEnded ? (
               <EndGameScene 
@@ -450,6 +515,7 @@ function App() {
                   setCurrentMachine(index);
                 }}
                 currentMachine={currentMachine}
+                designPotentialScore={pickableDesign ? calculateDesignPotentialScore(pickableDesign) : undefined}
               />
             )}              
           </div>

@@ -8,12 +8,14 @@ interface DesignProps {
   design: Design;
   onClick?: () => void;
   onMachineClick?: (machineIcon: string) => void;
+  potentialScore?: number;
 }
 
 export function DesignCard({ 
   design, 
   onClick,
-  onMachineClick 
+  onMachineClick,
+  potentialScore
 }: DesignProps) {
 
   const {play : playTouchDesign} = useSound(designTouch);
@@ -37,6 +39,11 @@ export function DesignCard({
       onClick={onClick}
       onMouseEnter={()=>playTouchDesign()}
     >
+      {potentialScore !== undefined && (
+        <div className="absolute top-0 right-0 text-xs font-bold text-green-600 bg-green-100 rounded px-1 z-10">
+          +{potentialScore}
+        </div>
+      )}
       <div className="transition-transform duration-300 group-hover:scale-105">
 
       {/* Icon */}

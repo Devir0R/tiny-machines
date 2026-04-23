@@ -14,9 +14,10 @@ interface ChoiceAreaProps {
   setCurrentMachine: (index: number) => void;
   tentativelyPlacedMachines: ([number, Machine | null] | null)[];
   currentMachine: number;
+  designPotentialScore?: number;
 }
 
-export const ChoiceArea = ({ pickableDesign, pickableMachines, addDesign, setCurrentMachine, tentativelyPlacedMachines, currentMachine }: ChoiceAreaProps) => {
+export const ChoiceArea = ({ pickableDesign, pickableMachines, addDesign, setCurrentMachine, tentativelyPlacedMachines, currentMachine, designPotentialScore }: ChoiceAreaProps) => {
     const [showsError, setShowError] = useState(false);
     const [showMachineDescription, setShowMachineDescription] = useState(false)
     const [hoveredDom, setHoveredDom] = useState<DOMRect | null>(null)
@@ -38,6 +39,7 @@ export const ChoiceArea = ({ pickableDesign, pickableMachines, addDesign, setCur
           {pickableDesign && 
             <DesignCard 
                 design={pickableDesign}
+                potentialScore={designPotentialScore}
                 onClick={() => {
                     if(pickableDesign) setShowError(!addDesign(pickableDesign))
                 }}/>}
