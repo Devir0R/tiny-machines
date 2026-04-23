@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Board } from "./components/Board"
 import { MACHINE } from "./interfaces/Machines"
 import { ChoiceArea } from "./components/ChoiceArea"
@@ -10,7 +10,11 @@ import { Machine } from "./machines/Machine"
 import { MachineFactory } from "./machines/MachineFactory"
 import { Design } from "./designs/Design"
 import { DesignTypes } from "./data/DesignTypes"
-
+import lowScoreSound from './assets/low-points.mp3'
+import goodScoreSound from './assets/middle-points.mp3'
+import highScoreSound from './assets/high-points.mp3'
+import EpicScoreSound from './assets/highest-points.mp3'
+import { useSound } from "react-sounds"
 
 function App() {
   const [machinesOnBoard, setMachinesOnBoard] = useState<(Machine | null)[]>(Array(64).fill(null))
@@ -27,6 +31,47 @@ function App() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
   const [isBoardHovered, setIsBoardHovered] = useState(false)
   const [placingFromDesign, setPlacingFromDesign] = useState<{ designIndex: number, machineIcon: string } | null>(null)
+  const [previousScore, setPreviousScore] = useState<number>(0)
+  const [floatingText, setFloatingText] = useState<{id: number, amount: number}>()
+  const infoRef = useRef<HTMLDivElement>(null);
+
+  const {play : playLowScore} = useSound(lowScoreSound);
+  const {play : playGoodScore} = useSound(goodScoreSound);
+  const {play : playHighScore} = useSound(highScoreSound);
+  const {play : playEpicScore} = useSound(EpicScoreSound);
+
+    let colorClass =[
+      "text-[#00FF15]",
+      "text-[#09F814]",
+      "text-[#12F214]",
+      "text-[#1AEB13]",
+      "text-[#23E512]",
+      "text-[#2CDE11]",
+      "text-[#35D711]",
+      "text-[#3ED110]",
+      "text-[#46CA0F]",
+      "text-[#4FC40E]",
+      "text-[#58BD0E]",
+      "text-[#61B70D]",
+      "text-[#6AB00C]",
+      "text-[#72A90C]",
+      "text-[#7BA30B]",
+      "text-[#849C0A]",
+      "text-[#8D9609]",
+      "text-[#958F09]",
+      "text-[#9E8808]",
+      "text-[#A78207]",
+      "text-[#B07B07]",
+      "text-[#B97506]",
+      "text-[#C16E05]",
+      "text-[#CA6804]",
+      "text-[#D36104]",
+      "text-[#DC5A03]",
+      "text-[#E55402]",
+      "text-[#ED4D01]",
+      "text-[#F64701]",
+      "text-[#FF4000]"
+  ];
 
   useEffect(() => {
     if (started) {
@@ -47,6 +92,48 @@ function App() {
       setConfirmed(false)
     }
   }, [confirmed])
+
+  useEffect(() => {
+    const added = score - previousScore;
+    if(added !== 0){
+      const newText = { id: Date.now(), amount: added };
+      setFloatingText(newText);
+      setTimeout(() => setFloatingText(undefined), 2000);
+      playScoreSound(added)
+      setPreviousScore(score);
+    }
+  }, [score, previousScore])
+
+  const playScoreSound = (addedAmount:number)=>{
+    if (addedAmount <= 10) {
+      playLowScore()
+    } else if (addedAmount <= 30) {
+      playGoodScore()
+    } else if (addedAmount <= 60) {
+      playHighScore()
+    } else {
+      playEpicScore()
+    }
+  }
+  
+  const clamp = (num:number, min:number, max:number) => Math.min(Math.max(num, min), max)
+
+  const getTextClasses = (amount: number) => {
+    let sizeClass = '';
+
+    if (amount <= 10) {
+      sizeClass = 'text-sm';
+    } else if (amount <= 30) {
+      sizeClass = 'text-lg';
+    } else if (amount <= 60) {
+      sizeClass = 'text-xl';
+    } else {
+      sizeClass = 'text-3xl';
+    }
+    
+
+    return `${sizeClass} ${colorClass[clamp(Math.floor(amount /4),0,29)]} font-bold`;
+  };
 
   useEffect(() => {
     const handleContextMenu = (event: { preventDefault: () => void; clientX: any; clientY: any }) => {
@@ -192,8 +279,8 @@ function App() {
     setCurrentMachine(-1); // Use 0 for design placement
   };
 
-
   
+  const infoRect = infoRef.current?.getBoundingClientRect() ?? undefined;
   return (
     <>
       {
@@ -244,7 +331,9 @@ function App() {
             onBoardHoverChange={setIsBoardHovered}
             placingFromDesign={placingFromDesign}
           />
-          <Info score={score} turnsLeft={turnsLeft} />          
+          <div ref={infoRef}>
+            <Info score={score} turnsLeft={turnsLeft}  />
+          </div>
         </div>
 
         {currentMachine >= 0 && pickableMachines[currentMachine] && !isBoardHovered && (
@@ -264,6 +353,18 @@ function App() {
             {placingFromDesign.machineIcon}
           </div>
         )}
+
+          {infoRef && floatingText &&
+          <div
+            key={floatingText.id}
+            className={`text-[5vh] fixed z-50 pointer-events-none score-float ${getTextClasses(floatingText.amount)}`}
+            style={infoRect ?{
+              left:infoRect.x + infoRect.width/2 , 
+              top: infoRect.top
+            } : {}}
+          >
+            +{floatingText.amount}
+          </div>}
       </div>
       
       :

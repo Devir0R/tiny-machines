@@ -327,4 +327,15 @@
   .end-game-button:active {
     transform: scale(0.95);
   }
+
+  @keyframes fadeUp {
+    0% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-50px); }
+  }
+
+  .score-float {
+    animation: fadeUp 1.5s ease-out forwards;
+  }
+
+
 }

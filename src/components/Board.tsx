@@ -2,13 +2,11 @@ import { useState } from "react"
 import type { MACHINE } from "../interfaces/Machines";
 import type { Machine } from "../machines/Machine";
 import { useSound } from 'react-sounds';
-import trainSound from '../assets/train.mp3';
-import ufoSound from '../assets/ufo.mp3';
-import ambulanceSound from '../assets/ambulance.mp3';
-import helicopterSound from '../assets/helicopter.mp3';
-import jetSound from '../assets/jet.mp3';
-import missileSound from '../assets/missile.mp3';
-import slotMachineSound from '../assets/slotMachine.mp3';
+import putSound2 from '../assets/put1.mp3';
+import putSound3 from '../assets/put3.mp3';
+import putSound4 from '../assets/put4.mp3';
+import putSound5 from '../assets/put5.mp3';
+
 
 interface BoardProps {
   machines: (Machine | null)[];
@@ -21,36 +19,18 @@ interface BoardProps {
 
 export const Board = ({ machines, currentMachine, setMachineAtIndexTentatively, tentativelyPlacedMachines ,onBoardHoverChange, placingFromDesign}: BoardProps) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-  const {play : playTrain} = useSound(trainSound);
-  const {play : playAmbulance} = useSound(ambulanceSound, {volume: .2});
-  const {play : playUfo} = useSound(ufoSound, {volume: .2});
-  const {play : playJet} = useSound(jetSound);
-  const {play : playHelicopter} = useSound(helicopterSound);
-  const {play : playMssile} = useSound(missileSound, {volume: .2});
-  const {play : playSlotMachine} = useSound(slotMachineSound, {volume: .2});
-
-  console.log("current machine", currentMachine);
-  console.log("current design machine", placingFromDesign);
+  const {play : playPutSound2} = useSound(putSound2);
+  const {play : playPutSound3} = useSound(putSound3);
+  const {play : playPutSound4} = useSound(putSound4);
+  const {play : playPutSound5} = useSound(putSound5);
   
-    function playMachineSounds(machine?: MACHINE | null) {
-        if(!machine) return;
+    function playPutSounds() {
+        const randomNumber = Math.random();
 
-        switch(machine){
-            case "✈️": playJet();
-            break;
-            case "🎰": playSlotMachine();
-            break;
-            case "🚀": playMssile();
-            break;
-            case "🚁": playHelicopter();
-            break;
-            case "🚆": playTrain();
-            break;
-            case "🚑": playAmbulance();
-            break;
-            case "🛸": playUfo();
-            break;
-        }
+        if(randomNumber < .25) playPutSound2();
+        else if(randomNumber < .5) playPutSound3();
+        else if(randomNumber < .75) playPutSound4();
+        else  playPutSound5();
     }
 
     return (
@@ -80,7 +60,7 @@ export const Board = ({ machines, currentMachine, setMachineAtIndexTentatively, 
                             } else if (placingFromDesign) {
                                 setMachineAtIndexTentatively(index, placingFromDesign.machineIcon as MACHINE)
                             }
-                            playMachineSounds((currentMachine || placingFromDesign?.machineIcon) as MACHINE);
+                            playPutSounds();
                         }}>
                             {machine?.icon ?? 
                             ((currentMachine && hoveredIndex === index)?
