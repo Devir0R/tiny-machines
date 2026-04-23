@@ -1,33 +1,16 @@
 import { Design } from "../Design";
 import { Machine } from "../../machines/Machine";
+import type { SlotMachine } from "../../machines/SlotMachine";
+import type { MACHINE } from "../../interfaces/Machines";
 
 export class AlienSlotMachine extends Design {
   name = "Alien Slot Machine";
-  description = "for each 🎰 adjacent to a 🛸, score that many points sqaured";
+  description = "for each 🎰 adjacent to a 🛸, if all machines around appear at least 3 times, double its score";
   icon = "🛸🎰";
   rarity: "common" | "legendary" = "legendary";
   machines = ['🛸', '🎰'];
-  score(machinesOnBoard: (Machine | null)[]): number {
-    let score  = 0;
-    for(const machine of machinesOnBoard){
-      if(!machine || machine.icon !== '🎰') continue;
-
-      if(!this.hasAdjacentUFO(machine,machinesOnBoard)) continue;
-
-      const indexesAround = machine.indexesAround(machine.index,machinesOnBoard);
-      const machineSet = new Set<Machine>();
-      let machineCountAround = 0;
-
-      for(const index of indexesAround){
-        const machineAround = machinesOnBoard[index];
-        if(machineAround){
-          machineSet.add(machineAround);
-          machineCountAround++;
-        }
-      }
-      if(machineCountAround===machineSet.size) score += machineCountAround * machineCountAround;
-    }
-    return score;
+  score(_machinesOnBoard: (Machine | null)[]): number {
+    return 0
   }
   private hasAdjacentUFO(machine: Machine, machinesOnBoard: (Machine | null)[]) {
     const adjacentIndexes = [
@@ -45,7 +28,19 @@ export class AlienSlotMachine extends Design {
     }
     return false;
   }
-  applyEffect(_machinesOnBoard: (Machine | null)[]): void {
-    return;
+  applyEffect(machinesOnBoard: (Machine | null)[]): void {
+    for(const machine of machinesOnBoard){
+      if(!machine || machine.icon !== '🎰') continue;
+
+      if(!this.hasAdjacentUFO(machine,machinesOnBoard)) continue;
+      const slotMachine = machine as SlotMachine;
+
+      const counts = slotMachine.getMachineCount(machinesOnBoard);
+
+      for(const machineType of Object.keys(counts)){
+        if(counts[machineType as MACHINE].length < 3) return;
+      }
+      slotMachine.effects.push(score=>score*2)
+    }
   }
 }

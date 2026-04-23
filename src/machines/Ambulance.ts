@@ -3,7 +3,7 @@ import { Machine } from "./Machine";
 /**
  * Ambulance machine:
  * - Icon: 🚑
- * - Description: "2 point for each air machine around it"
+ * - Description: "2 point for each air machine around it.(✈️, 🛸 and 🚁)"
  * - Scoring: Scores 2 point for each adjacent machine that is an air machine (Jet, UFO, Helicopter)
  */
 export class Ambulance extends Machine {
