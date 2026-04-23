@@ -257,6 +257,139 @@ function App() {
     setScore(newScore);
   }
 
+  function calculateMachineContribution(index: number): number {
+    if (!machinesOnBoard[index]) return 0;
+
+    // Calculate score without this machine
+    const machinesWithoutThis = machinesOnBoard.map((m, i) => i === index ? null : m);
+    
+    // Reset effects
+    for (let i = 0; i < machinesWithoutThis.length; i++) {
+      if (machinesWithoutThis[i]) {
+        machinesWithoutThis[i]!.resetEffects();
+      }
+    }
+    
+    for(const design of designs){
+      design.applyEffect(machinesWithoutThis);
+    }
+    
+    for (let i = 0; i < machinesWithoutThis.length; i++) {
+      if (machinesWithoutThis[i]) {
+        machinesWithoutThis[i]!.applyEffects(machinesWithoutThis);
+      }
+    }
+    
+    let scoreWithout = 0;
+    for (let i = 0; i < machinesWithoutThis.length; i++) {
+      if (machinesWithoutThis[i]) {
+        scoreWithout += machinesWithoutThis[i]!.score(machinesWithoutThis);
+      }
+    }
+    
+    for(const design of designs){
+      scoreWithout += design.score(machinesWithoutThis);
+    }
+
+    // Calculate score with this machine
+    let scoreWith = 0;
+    
+    // Reset effects on original board
+    for (let i = 0; i < machinesOnBoard.length; i++) {
+      if (machinesOnBoard[i]) {
+        machinesOnBoard[i]!.resetEffects();
+      }
+    }
+    
+    for(const design of designs){
+      design.applyEffect(machinesOnBoard);
+    }
+    
+    for (let i = 0; i < machinesOnBoard.length; i++) {
+      if (machinesOnBoard[i]) {
+        machinesOnBoard[i]!.applyEffects(machinesOnBoard);
+      }
+    }
+    
+    for (let i = 0; i < machinesOnBoard.length; i++) {
+      if (machinesOnBoard[i]) {
+        scoreWith += machinesOnBoard[i]!.score(machinesOnBoard);
+      }
+    }
+    
+    for(const design of designs){
+      scoreWith += design.score(machinesOnBoard);
+    }
+
+    return Math.max(0, scoreWith - scoreWithout);
+  }
+
+  function calculatePotentialScore(index: number, machineType: MACHINE): number {
+    // Create a temporary board with the machine placed at the index
+    const tempMachines = [...machinesOnBoard];
+    tempMachines[index] = MachineFactory.create(machineType, index);
+    
+    // Reset effects
+    for (let i = 0; i < tempMachines.length; i++) {
+      if (tempMachines[i]) {
+        tempMachines[i]!.resetEffects();
+      }
+    }
+    
+    for(const design of designs){
+      design.applyEffect(tempMachines);
+    }
+    
+    for (let i = 0; i < tempMachines.length; i++) {
+      if (tempMachines[i]) {
+        tempMachines[i]!.applyEffects(tempMachines);
+      }
+    }
+    
+    let scoreWith = 0;
+    for (let i = 0; i < tempMachines.length; i++) {
+      if (tempMachines[i]) {
+        scoreWith += tempMachines[i]!.score(tempMachines);
+      }
+    }
+    
+    for(const design of designs){
+      scoreWith += design.score(tempMachines);
+    }
+
+    // Calculate score without the machine
+    let scoreWithout = 0;
+    
+    // Reset effects on original board
+    for (let i = 0; i < machinesOnBoard.length; i++) {
+      if (machinesOnBoard[i]) {
+        machinesOnBoard[i]!.resetEffects();
+      }
+    }
+    
+    for(const design of designs){
+      design.applyEffect(machinesOnBoard);
+    }
+    
+    for (let i = 0; i < machinesOnBoard.length; i++) {
+      if (machinesOnBoard[i]) {
+        machinesOnBoard[i]!.applyEffects(machinesOnBoard);
+      }
+    }
+    
+    for (let i = 0; i < machinesOnBoard.length; i++) {
+      if (machinesOnBoard[i]) {
+        scoreWithout += machinesOnBoard[i]!.score(machinesOnBoard);
+      }
+    }
+    
+    for(const design of designs){
+      scoreWithout += design.score(machinesOnBoard);
+    }
+
+    return Math.max(0, scoreWith - scoreWithout);
+  }
+
   const addDesign = (design: Design) => {
     if(designs.length >= 5) return false;
     setDesigns([...designs, design])
@@ -330,6 +463,8 @@ function App() {
             tentativelyPlacedMachines={tentativelyPlacedMachines}
             onBoardHoverChange={setIsBoardHovered}
             placingFromDesign={placingFromDesign}
+            calculateMachineContribution={calculateMachineContribution}
+            calculatePotentialScore={calculatePotentialScore}
           />
           <div ref={infoRef}>
             <Info score={score} turnsLeft={turnsLeft}  />

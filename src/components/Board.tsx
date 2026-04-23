@@ -15,9 +15,11 @@ interface BoardProps {
   tentativelyPlacedMachines: ([number, Machine | null] | null)[];
   onBoardHoverChange: (hovered: boolean) => void;
   placingFromDesign: { designIndex: number, machineIcon: string } | null;
+  calculateMachineContribution: (index: number) => number;
+  calculatePotentialScore: (index: number, machine: MACHINE) => number;
 }
 
-export const Board = ({ machines, currentMachine, setMachineAtIndexTentatively, tentativelyPlacedMachines ,onBoardHoverChange, placingFromDesign}: BoardProps) => {
+export const Board = ({ machines, currentMachine, setMachineAtIndexTentatively, tentativelyPlacedMachines ,onBoardHoverChange, placingFromDesign, calculateMachineContribution, calculatePotentialScore}: BoardProps) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
   const {play : playPutSound2} = useSound(putSound2);
   const {play : playPutSound3} = useSound(putSound3);
@@ -73,7 +75,12 @@ export const Board = ({ machines, currentMachine, setMachineAtIndexTentatively, 
                         </button>
                         {hoveredIndex === index && machine && (
                             <div className="absolute top-0 right-0 text-xs font-bold text-yellow-600 bg-yellow-100 rounded px-1">
-                                +{machine.score(machines)}
+                                +{calculateMachineContribution(index)}
+                            </div>
+                        )}
+                        {hoveredIndex === index && !machine && (currentMachine || placingFromDesign) && (
+                            <div className="absolute top-0 right-0 text-xs font-bold text-blue-600 bg-blue-100 rounded px-1">
+                                +{currentMachine ? calculatePotentialScore(index, currentMachine) : calculatePotentialScore(index, placingFromDesign!.machineIcon as MACHINE)}
                             </div>
                         )}
                     </div>
