@@ -3,10 +3,11 @@
 :root {
   --steampunk-purple-18: rgb(34 31 46);
   --steampunk-purple-44: rgb(110 72 107);
-  --steampunk-purple-56: rgb(79 93 138);
-  --steampunk-purple-30: rgb(57, 52, 77);
+  --steampunk-purple-56: rgb(148 92 158);
+  --steampunk-purple-30: rgb(72, 52, 77);
   --font-size: 16px;
   --background: rgb(205 152 86);
+  --background-darker: rgb(164 122 69);  
   --secondary-background: rgb(157 96 55);
   --steampunk-gray: rgb(120 111 123);
   --foreground: oklch(0.145 0 0);
