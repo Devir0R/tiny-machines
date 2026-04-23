@@ -3,14 +3,14 @@ import type { Machine } from "../../machines/Machine";
 
 export class LotteryStrike extends Design {
   name = "Lottery Strike";
-  description = "for each pair of ✈️ adjacent to an 🚀, gain 16 points";
-  icon = "✈️🚀";
+  description = "for each pair of 🎰 adjacent to an 🚀, gain 16 points";
+  icon = "🎰🚀";
   rarity: "common" | "legendary" = "common";
   machines = ['🚀', '🎰'];
 
   score(_machinesOnBoard: (Machine | null)[]): number {
     const machine1Icon = '🚀';
-    const machine2Icon = '✈️';
+    const machine2Icon = '🎰';
     let score = 0;
     for (const machine of _machinesOnBoard) {
         if (machine && machine.icon == machine1Icon) {

@@ -94,6 +94,7 @@ function App() {
   }, [confirmed])
 
   useEffect(() => {
+    if(score === 0) return;
     const added = score - previousScore;
     if(added !== 0){
       const newText = { id: Date.now(), amount: added };

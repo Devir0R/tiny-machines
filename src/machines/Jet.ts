@@ -1,3 +1,4 @@
+import { MACHINE } from "../interfaces/Machines";
 import { Machine } from "./Machine";
 
 /**
@@ -17,8 +18,9 @@ export class Jet extends Machine {
 
     getBaseScore(machinesOnBoard: (Machine | null)[]): number {
         const scoringIndexes = this.scoringIndexes(machinesOnBoard);
+        const distinctMachines = new Set<MACHINE|undefined>(scoringIndexes.map(index=>machinesOnBoard[index]?.icon))
 
-        return scoringIndexes.length * scoringIndexes.length;
+        return distinctMachines.size * distinctMachines.size;
     }
 
     getHighlightedIndexes(machinesOnBoard: (Machine | null)[]): number[]{
