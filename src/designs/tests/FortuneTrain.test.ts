@@ -5,13 +5,13 @@ import { Train } from "../../machines/Train";
 const createEmptyBoard = () => Array(9).fill(null) as (any | null)[];
 
 describe("FortuneTrain", () => {
-  test("scores 4 points for each SlotMachine adjacent to a Train", () => {
+  test("scores 15 points for each SlotMachine adjacent to a Train", () => {
     const board = createEmptyBoard();
     const design = new FortuneTrain();
     board[4] = new SlotMachine(4);
     board[5] = new Train(5); // adjacent to 4
 
-    expect(design.score(board)).toBe(4);
+    expect(design.score(board)).toBe(15);
   });
 
   test("scores 0 when SlotMachine and Train are not adjacent", () => {
@@ -23,7 +23,7 @@ describe("FortuneTrain", () => {
     expect(design.score(board)).toBe(0);
   });
 
-  test("scores 8 for two pairs", () => {
+  test("scores 30 for two pairs", () => {
     const board = createEmptyBoard();
     const design = new FortuneTrain();
     board[0] = new SlotMachine(0);
@@ -31,7 +31,7 @@ describe("FortuneTrain", () => {
     board[3] = new SlotMachine(3);
     board[4] = new Train(4); // adjacent
 
-    expect(design.score(board)).toBe(8);
+    expect(design.score(board)).toBe(30);
   });
 
   test("scores 0 when no machines are present", () => {

@@ -5,13 +5,13 @@ import { Train } from "../../machines/Train";
 const createEmptyBoard = () => Array(9).fill(null) as (any | null)[];
 
 describe("SonicRail", () => {
-  test("scores 4 points for each Jet adjacent to a Train", () => {
+  test("scores 15 points for each Jet adjacent to a Train", () => {
     const board = createEmptyBoard();
     const design = new SonicRail();
     board[4] = new Jet(4);
     board[5] = new Train(5); // adjacent to 4
 
-    expect(design.score(board)).toBe(4);
+    expect(design.score(board)).toBe(15);
   });
 
   test("scores 0 when Jet and Train are not adjacent", () => {
@@ -23,7 +23,7 @@ describe("SonicRail", () => {
     expect(design.score(board)).toBe(0);
   });
 
-  test("scores 8 for two pairs", () => {
+  test("scores30 for two pairs", () => {
     const board = createEmptyBoard();
     const design = new SonicRail();
     board[0] = new Jet(0);
@@ -31,7 +31,7 @@ describe("SonicRail", () => {
     board[3] = new Jet(3);
     board[4] = new Train(4); // adjacent
 
-    expect(design.score(board)).toBe(8);
+    expect(design.score(board)).toBe(30);
   });
 
   test("scores 0 when no machines are present", () => {

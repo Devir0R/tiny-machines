@@ -148,7 +148,7 @@ export const TutorialGuide = ({ onClose }: MachineTutorialProps) => {
               </div>
 
               {/* Machine Counter */}
-              <div className="text-center mt-8" style={{ color: 'var(--steampunk-gray)' }}>
+              <div className="text-center mt-8" style={{ color: 'var(--steampunk-purple-18)' }}>
                 <p className="text-sm">Machine {currentMachineIndex + 1} of {machineExamples.length}</p>
               </div>
             </div>

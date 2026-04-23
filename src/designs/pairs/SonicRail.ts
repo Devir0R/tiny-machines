@@ -3,7 +3,7 @@ import type { Machine } from "../../machines/Machine";
 
 export class SonicRail extends Design {
   name = "Sonic Rail";
-  description = "for each pair of ✈️ adjacent to an 🚆, gain 4 points";  icon = "✈️🚆";
+  description = "for each pair of ✈️ adjacent to an 🚆, gain 16 points";  icon = "✈️🚆";
   rarity: "common" | "legendary" = "common";
   machines = ['✈️', '🚆'];
   score(_machinesOnBoard: (Machine | null)[]): number {
@@ -21,7 +21,7 @@ export class SonicRail extends Design {
                 if (adjacentIndex !== -1 && 
                         _machinesOnBoard[adjacentIndex] && 
                         _machinesOnBoard[adjacentIndex].icon == machine2Icon) {
-                    score+= 4;
+                    score+= 15;
                 }
             }
         }

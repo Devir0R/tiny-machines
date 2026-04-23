@@ -5,13 +5,13 @@ import { Jet } from "../../machines/Jet";
 const createEmptyBoard = () => Array(9).fill(null) as (any | null)[];
 
 describe("LotteryStrike", () => {
-  test("scores 4 points for each Missile adjacent to a Jet", () => {
+  test("scores 15 points for each Missile adjacent to a Jet", () => {
     const board = createEmptyBoard();
     const design = new LotteryStrike();
     board[4] = new Missile(4);
     board[5] = new Jet(5); // adjacent to 4
 
-    expect(design.score(board)).toBe(4);
+    expect(design.score(board)).toBe(15);
   });
 
   test("scores 0 when Missile and Jet are not adjacent", () => {
@@ -23,7 +23,7 @@ describe("LotteryStrike", () => {
     expect(design.score(board)).toBe(0);
   });
 
-  test("scores 8 for two pairs", () => {
+  test("scores 30 for two pairs", () => {
     const board = createEmptyBoard();
     const design = new LotteryStrike();
     board[0] = new Missile(0);
@@ -31,7 +31,7 @@ describe("LotteryStrike", () => {
     board[3] = new Missile(3);
     board[4] = new Jet(4); // adjacent
 
-    expect(design.score(board)).toBe(8);
+    expect(design.score(board)).toBe(30);
   });
 
   test("scores 0 when no machines are present", () => {

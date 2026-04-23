@@ -1,11 +1,11 @@
 import { Design } from "../Design";
 import { Machine } from "../../machines/Machine";
 import type { SlotMachine } from "../../machines/SlotMachine";
-import type { MACHINE } from "../../interfaces/Machines";
+import { MACHINE } from "../../interfaces/Machines";
 
 export class AlienSlotMachine extends Design {
   name = "Alien Slot Machine";
-  description = "for each 🎰 adjacent to a 🛸, if all machines around appear at least 3 times, double its score";
+  description = "for each 🎰 adjacent to a 🛸, if all machines around appear at least 3 times(except 🛸), double its score";
   icon = "🛸🎰";
   rarity: "common" | "legendary" = "legendary";
   machines = ['🛸', '🎰'];
@@ -38,6 +38,7 @@ export class AlienSlotMachine extends Design {
       const counts = slotMachine.getMachineCount(machinesOnBoard);
 
       for(const machineType of Object.keys(counts)){
+        if(machineType === MACHINE.UFO) continue;
         if(counts[machineType as MACHINE].length < 3) return;
       }
       slotMachine.effects.push(score=>score*2)

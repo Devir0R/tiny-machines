@@ -5,13 +5,13 @@ import { Helicopter } from "../../machines/Helicopter";
 const createEmptyBoard = () => Array(9).fill(null) as (any | null)[];
 
 describe("SkyWarriors", () => {
-  test("scores 4 points for each Jet adjacent to a Helicopter", () => {
+  test("scores 15 points for each Jet adjacent to a Helicopter", () => {
     const board = createEmptyBoard();
     const design = new SkyWarriors();
     board[4] = new Jet(4);
     board[5] = new Helicopter(5); // adjacent to 4
 
-    expect(design.score(board)).toBe(4);
+    expect(design.score(board)).toBe(15);
   });
 
   test("scores 0 when Jet and Helicopter are not adjacent", () => {
@@ -23,7 +23,7 @@ describe("SkyWarriors", () => {
     expect(design.score(board)).toBe(0);
   });
 
-  test("scores 8 for two pairs", () => {
+  test("scores 40 for two pairs", () => {
     const board = createEmptyBoard();
     const design = new SkyWarriors();
     board[0] = new Jet(0);
@@ -31,7 +31,7 @@ describe("SkyWarriors", () => {
     board[3] = new Jet(3);
     board[4] = new Helicopter(4); // adjacent
 
-    expect(design.score(board)).toBe(8);
+    expect(design.score(board)).toBe(30);
   });
 
   test("scores 0 when no machines are present", () => {
