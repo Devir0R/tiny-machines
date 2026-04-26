@@ -6,7 +6,7 @@ export class HeliCenter extends Design {
   description = "7 points for each 🚁 in 4 center cells";
   icon = "🚁";
   rarity: "common" | "legendary" = "common";
-  machines = [];
+  machines = ['🚁'];
 
   score(machinesOnBoard: (Machine | null)[]): number {
     let indexes = this.getScoringIndexes(machinesOnBoard);

@@ -9,7 +9,7 @@ export class BulletTrain extends Design {
   description = "3 points for each ✈️ or 🚀 on the board";
   icon = "🚆";
   rarity: "common" | "legendary" = "common";
-  machines = ['✈️','🚀'];
+  machines = ['🚆'];
 
   score(machinesOnBoard: (Machine | null)[]): number {
     return machinesOnBoard.filter(machine=>machine && this.machines.includes(machine?.icon)).length * 3;

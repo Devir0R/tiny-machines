@@ -10,10 +10,11 @@ export class SpecializedAmbulance extends Design {
   description = "2 Points for each air machine on the board(✈️, 🛸 and 🚁).";
   icon = "🚑";
   rarity: "common" | "legendary" = "common";
-  machines = [MACHINE.HELICOPTER,MACHINE.JET,MACHINE.UFO] as MACHINE[];
+  machines = ['🚑'];
+  static airMachines = [MACHINE.HELICOPTER,MACHINE.JET,MACHINE.UFO] as MACHINE[];
 
   score(machinesOnBoard: (Machine | null)[]): number {
-    return machinesOnBoard.filter(machine=>machine && this.machines.includes(machine?.icon)).length * 2;
+    return machinesOnBoard.filter(machine=>machine && SpecializedAmbulance.airMachines.includes(machine?.icon)).length * 2;
 
   }
 

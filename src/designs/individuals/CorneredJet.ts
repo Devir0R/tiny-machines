@@ -6,7 +6,7 @@ export class CorneredJet extends Design {
   description = "7 points for each ✈️ in the corner";
   icon = "✈️";
   rarity: "common" | "legendary" = "common";
-  machines = [];
+  machines = ['✈️'];
 
   score(machinesOnBoard: (Machine | null)[]): number {
     const boardLength = Math.round(Math.sqrt(machinesOnBoard.length));

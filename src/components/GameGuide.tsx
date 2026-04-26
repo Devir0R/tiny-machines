@@ -103,27 +103,27 @@ export const GameGuide = ({ onClose }: GameGuideProps) => {
                 {
                   title: "🚑 Ambulance",
                   scoring:
-                    "2 points for each Air machine (Helicopter, Jet, UFO) adjacent to it",
+                    "Scores 2 point for each air machine around it.(✈️, 🛸 and 🚁)",
                 },
                 {
                   title: "🚁 Helicopter",
                   scoring:
-                    "3 points for each direction with two machines of the same type",
+                    "Scores 3 points for each direction with two machines of the same type",
                 },
                 {
                   title: "✈️ Jet",
                   scoring:
-                    "Scores 3 points for each different machine type in the longest line from it with most different machine type",
+                    "Scores the number of different machines in a line coming out of it with most different machines times 3",
                 },
                 {
                   title: "🚆 Train",
                   scoring:
-                    "1 point if connected to 1 Train, 3 points if connected to 2 Trains, 0 otherwise",
+                    "scores 0 unless connected to 1 or 2 🚆. for each 🚆 that is connected to 1 or 2 🚆 via 🚆 get that many points",
                 },
                 {
                   title: "🚀 Missile",
                   scoring:
-                    "2 points for each non-Air machine (Train, Slot Machine, Ambulance) adjacent to it",
+                    "2 points for each non-air machine around it(🚆,🎰 and 🚑)",
                 },
                 {
                   title: "🛸 UFO",
@@ -205,30 +205,8 @@ export const GameGuide = ({ onClose }: GameGuideProps) => {
               style={{ color: "rgb(58 62 81)" }}
             >
               Designs are special combinations that provide bonus points when you have the right
-              machines on the board. Complete as many designs as possible to maximize your score!
+              machines on the board. Choose them wisely.
             </p>
-            <div
-              className="p-4 rounded-lg border"
-              style={{
-                backgroundColor: "rgb(157 96 55)", // --secondary-background
-                borderColor: "rgb(110 72 107)", // --steampunk-purple-44
-              }}
-            >
-              <p style={{ color: "rgb(207 171 131)" }}>
-                Some popular designs include:
-                <br />
-                <strong style={{ color: "rgb(205 152 86)" }}>Ambulance Helicopter:</strong> 4
-                points for each Helicopter adjacent to an Ambulance
-                <br />
-                <strong style={{ color: "rgb(205 152 86)" }}>Sonic Rail:</strong> 5 points for
-                each horizontal or vertical line of 2+ Trains
-                <br />
-                <strong style={{ color: "rgb(205 152 86)" }}>Jet Missile Barrage:</strong> 4
-                points for each Missile adjacent to a Jet
-                <br />
-                <strong style={{ color: "rgb(205 152 86)" }}>...and many more alien variants!</strong>
-              </p>
-            </div>
           </section>
 
           {/* Strategy */}

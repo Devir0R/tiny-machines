@@ -16,6 +16,8 @@ import highScoreSound from './assets/high-points.mp3'
 import EpicScoreSound from './assets/highest-points.mp3'
 import { useSound } from "react-sounds"
 
+const TURNS_COUNT = 25;
+
 function App() {
   const [machinesOnBoard, setMachinesOnBoard] = useState<(Machine | null)[]>(Array(64).fill(null))
   const [pickableDesign, setPickableDesign] = useState<Design | null>(null)
@@ -24,7 +26,7 @@ function App() {
   const [currentMachine, setCurrentMachine] = useState<number>(-1)
   const [designs, setDesigns] = useState<Design[]>([])
   const [score, setScore] = useState<number>(0)
-  const [turnsLeft, setTurnsLeft] = useState<number>(20)
+  const [turnsLeft, setTurnsLeft] = useState<number>(TURNS_COUNT)
   const [started, setStarted] = useState<boolean>(false)
   const [gameEnded, setGameEnded] = useState<boolean>(false)
   const [confirmed, setConfirmed] = useState<boolean>(false)
@@ -495,7 +497,7 @@ function App() {
                   setGameEnded(false)
                   setStarted(true)
                   setScore(0)
-                  setTurnsLeft(20)
+                  setTurnsLeft(TURNS_COUNT)
                   setDesigns([])
                   setMachinesOnBoard(Array(64).fill(null))
                   setPickableMachines([null, null])
