@@ -22,3 +22,12 @@ export { AlienJet } from "./aliens/AlienJet";
 export { AlienMissile } from "./aliens/AlienMissile";
 export { AlienSlotMachine } from "./aliens/AlienSlotMachine";
 export { AlienTrain } from "./aliens/AlienTrain";
+
+// Individual Machines Designs
+export { BulletTrain } from "./individuals/BulletTrain";
+export { CorneredJet } from "./individuals/CorneredJet";
+export { ExtraSlot } from "./individuals/ExtraSlot";
+export { HeliCenter } from "./individuals/HeliCenter";
+export { SpecializedAmbulance } from "./individuals/SpecializedAmbulance";
+export { SpecializedMissile } from "./individuals/SpecializedMissile";
+

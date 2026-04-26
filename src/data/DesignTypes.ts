@@ -22,6 +22,12 @@ import {
   AlienMissile,
   AlienSlotMachine,
   AlienTrain,
+  BulletTrain,
+  CorneredJet,
+  ExtraSlot,
+  HeliCenter,
+  SpecializedAmbulance,
+  SpecializedMissile
 } from "../designs";
 
 export const DesignTypes: { [key in DESIGN]: Design } = {
@@ -46,4 +52,10 @@ export const DesignTypes: { [key in DESIGN]: Design } = {
   [DESIGN.ALIEN_MISSILE]: new AlienMissile(),
   [DESIGN.ALIEN_SLOT_MACHINE]: new AlienSlotMachine(),
   [DESIGN.ALIEN_TRAIN]: new AlienTrain(),
+  [DESIGN.EXTRA_SLOT]: new ExtraSlot(),
+  [DESIGN.CORNERED_JET]: new CorneredJet(),
+  [DESIGN.BULLET_TRAIN]: new BulletTrain(),
+  [DESIGN.SPECIALIZED_AMBULANCE]: new SpecializedAmbulance(),
+  [DESIGN.SPECIALIZED_MISSILE]: new SpecializedMissile(),
+  [DESIGN.HELI_CENTER]: new HeliCenter(),
 };

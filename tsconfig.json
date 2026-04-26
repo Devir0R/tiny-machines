@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "types": ["vite/client", "jest"],
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "target": "ES2023",
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
   },
   "files": [],
   "references": [
