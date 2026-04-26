@@ -3,7 +3,6 @@ import { Helicopter } from "../../machines/Helicopter";
 import { UFO } from "../../machines/UFO";
 import { Train } from "../../machines/Train";
 import { Ambulance } from "../../machines/Ambulance";
-import { Jet } from "../../machines/Jet";
 import type { Machine } from "../../machines/Machine";
 
 const createEmptyBoard = () => Array(9).fill(null) as (any | null)[];
