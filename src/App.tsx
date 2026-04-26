@@ -156,7 +156,7 @@ function App() {
     return () => {
       window.removeEventListener('contextmenu', handleContextMenu);
     };
-  }, []);
+  }, [currentMachine, placingFromDesign]);
 
   
   function generatePicks() {
