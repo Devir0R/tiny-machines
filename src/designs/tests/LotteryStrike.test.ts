@@ -1,6 +1,6 @@
 import { LotteryStrike } from "../pairs/LotteryStrike";
 import { Missile } from "../../machines/Missile";
-import { Jet } from "../../machines/Jet";
+import { SlotMachine } from "../../machines/SlotMachine";
 
 const createEmptyBoard = () => Array(9).fill(null) as (any | null)[];
 
@@ -9,7 +9,7 @@ describe("LotteryStrike", () => {
     const board = createEmptyBoard();
     const design = new LotteryStrike();
     board[4] = new Missile(4);
-    board[5] = new Jet(5); // adjacent to 4
+    board[5] = new SlotMachine(5); // adjacent to 4
 
     expect(design.score(board)).toBe(15);
   });
@@ -18,7 +18,7 @@ describe("LotteryStrike", () => {
     const board = createEmptyBoard();
     const design = new LotteryStrike();
     board[0] = new Missile(0);
-    board[8] = new Jet(8); // not adjacent
+    board[8] = new SlotMachine(8); // not adjacent
 
     expect(design.score(board)).toBe(0);
   });
@@ -27,9 +27,9 @@ describe("LotteryStrike", () => {
     const board = createEmptyBoard();
     const design = new LotteryStrike();
     board[0] = new Missile(0);
-    board[1] = new Jet(1); // adjacent
+    board[1] = new SlotMachine(1); // adjacent
     board[3] = new Missile(3);
-    board[4] = new Jet(4); // adjacent
+    board[4] = new SlotMachine(4); // adjacent
 
     expect(design.score(board)).toBe(30);
   });

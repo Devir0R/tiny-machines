@@ -103,17 +103,17 @@ export const GameGuide = ({ onClose }: GameGuideProps) => {
                 {
                   title: "🚑 Ambulance",
                   scoring:
-                    "2 points for each Air machine (Helicopter, Jet) adjacent to it",
+                    "2 points for each Air machine (Helicopter, Jet, UFO) adjacent to it",
                 },
                 {
                   title: "🚁 Helicopter",
                   scoring:
-                    "3 points for each empty spot around it that is surrounded by at least 3 machines",
+                    "3 points for each direction with two machines of the same type",
                 },
                 {
                   title: "✈️ Jet",
                   scoring:
-                    "Scores the square of the number of different machine types in the longest line from it",
+                    "Scores 3 points for each different machine type in the longest line from it with most different machine type",
                 },
                 {
                   title: "🚆 Train",
@@ -123,7 +123,7 @@ export const GameGuide = ({ onClose }: GameGuideProps) => {
                 {
                   title: "🚀 Missile",
                   scoring:
-                    "2 points for each non-Air machine (Train, Slot Machine, Ambulance, Missile) adjacent to it",
+                    "2 points for each non-Air machine (Train, Slot Machine, Ambulance) adjacent to it",
                 },
                 {
                   title: "🛸 UFO",

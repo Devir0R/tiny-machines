@@ -37,6 +37,7 @@ export abstract class Machine {
     }
 
     Up(index: number, machinesOnBoard: (Machine | null)[]): number{
+        if(index < 0) return -1;
         const length = Math.round(Math.sqrt(machinesOnBoard.length));
         const x = index % length;
         const y = Math.floor(index / length);
@@ -49,6 +50,7 @@ export abstract class Machine {
     }
 
     Down(index: number, machinesOnBoard: (Machine | null)[]): number{
+        if(index < 0) return -1;
         const length = Math.round(Math.sqrt(machinesOnBoard.length));
         const x = index % length;
         const y = Math.floor(index / length);
@@ -60,6 +62,7 @@ export abstract class Machine {
     }
 
     Right(index: number, machinesOnBoard: (Machine | null)[]): number{
+        if(index < 0) return -1;
         const length = Math.round(Math.sqrt(machinesOnBoard.length));
         const x = index % length;
         const y = Math.floor(index / length);
@@ -72,6 +75,7 @@ export abstract class Machine {
     }
 
     Left(index: number, machinesOnBoard: (Machine | null)[]): number{
+        if(index < 0) return -1;
         const length = Math.round(Math.sqrt(machinesOnBoard.length));
         const x = index % length;
         const y = Math.floor(index / length);

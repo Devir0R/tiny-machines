@@ -3,14 +3,14 @@ import { Machine } from "./Machine";
 /**
  * Helicopter machine:
  * - Icon: 🚁
- * - Description: "3 points for each empty spot around it surrounded by at least 3 machines"
- * - Scoring: Scores 3 points for each adjacent empty space that is surrounded by at least 3 machines (including diagonals)
+ * - Description: "3 points for each direction with two machines of the same type"
+ * - Scoring: Scores 3 points for each direction (including diagonals) with two machines of the same type
  */
 export class Helicopter extends Machine {
     constructor(index: number) {
         super(index);
         this.name = "Helicopter";
-        this.description = "3 points for each empty spot around it surrounded by at least 3 machines";
+        this.description = "3 points for each direction with two machines of the same type";
         this.icon = "🚁";
     }
 
@@ -19,21 +19,32 @@ export class Helicopter extends Machine {
     }
 
     getHighlightedIndexes(machinesOnBoard: (Machine | null)[]): number[]{
-        return this.scoringIndexes(machinesOnBoard);
+        return this.scoringIndexes(machinesOnBoard).reduce((acc,curr)=>[...acc,...curr],[] as number[]);
     }
 
-    scoringIndexes(machinesOnBoard: (Machine | null)[]) : number[]{
-        return this.indexesAround(this.index, machinesOnBoard)
-        .filter(index=>{
-            if (index !== -1 && machinesOnBoard[index] === null) {
-                const surroundingIndexes = this.indexesAround(index, machinesOnBoard);
-                let surroundingMachinesCount = 0;
-                for (const surroundingIndex of surroundingIndexes) {
-                    if (surroundingIndex !== -1 && machinesOnBoard[surroundingIndex] !== null) {
-                        surroundingMachinesCount++;
-                    }
-                }
-                if (surroundingMachinesCount >= 3) return true;
+    scoringIndexes(machinesOnBoard: (Machine | null)[]) : [number,number][]{
+        const upIndex = this.Up(this.index, machinesOnBoard);
+        const downIndex = this.Down(this.index, machinesOnBoard);
+        const rightIndex = this.Right(this.index, machinesOnBoard);
+        const leftIndex = this.Left(this.index, machinesOnBoard);
+        const upLeftIndex = this.Left(upIndex, machinesOnBoard);
+        const upRightIndex = this.Right(upIndex, machinesOnBoard);
+        const downLeftIndex = this.Left(downIndex, machinesOnBoard);
+        const downRightIndex = this.Right(downIndex, machinesOnBoard);
+        const indexesAroundTwoconsecutive : [number,number][] = [
+            [upIndex,this.Up(upIndex,machinesOnBoard)],
+            [downIndex,this.Down(downIndex,machinesOnBoard)],
+            [rightIndex,this.Right(rightIndex,machinesOnBoard)],
+            [leftIndex,this.Left(leftIndex,machinesOnBoard)],
+            [upLeftIndex,this.Up(this.Left(upLeftIndex,machinesOnBoard),machinesOnBoard)],
+            [upRightIndex,this.Up(this.Right(upRightIndex,machinesOnBoard),machinesOnBoard)],
+            [downLeftIndex,this.Down(this.Left(downLeftIndex,machinesOnBoard),machinesOnBoard)],
+            [downRightIndex,this.Down(this.Right(downRightIndex,machinesOnBoard),machinesOnBoard)],
+        ]
+        return indexesAroundTwoconsecutive.filter(([index,nextIndex])=>{
+            if (index !== -1 && nextIndex !== -1 
+                    && machinesOnBoard[index] !== null && machinesOnBoard[nextIndex] !== null) {
+                return machinesOnBoard[index]!.icon === machinesOnBoard[nextIndex]!.icon;
             }
             return false;
         });

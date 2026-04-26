@@ -20,7 +20,7 @@ export const TutorialGuide = ({ onClose }: MachineTutorialProps) => {
     {
       icon: MACHINE.AMBULANCE,
       name: "Ambulance",
-      scoringRule: "Scores 2 points for each Air machine (Helicopter, Jet) around it",
+      scoringRule: "Scores 2 points for each Air machine (🚁, ✈️, 🛸) around it",
       boardSetup: [
         null, MACHINE.HELICOPTER, null,
         MACHINE.AMBULANCE,  MACHINE.JET,null,
@@ -31,24 +31,24 @@ export const TutorialGuide = ({ onClose }: MachineTutorialProps) => {
     {
       icon: MACHINE.HELICOPTER,
       name: "Helicopter",
-      scoringRule: "Scores 3 points for each empty spot around it that is surrounded by at least 3 machines",
+      scoringRule: "3 points for each direction with two machines of the same type",
       boardSetup: [
-        MACHINE.AMBULANCE, MACHINE.JET, MACHINE.MISSILE,
-        MACHINE.TRAIN, MACHINE.HELICOPTER, null,
-        MACHINE.UFO, null, MACHINE.SLOT_MACHINE
+        MACHINE.HELICOPTER, MACHINE.MISSILE, MACHINE.MISSILE,
+        MACHINE.TRAIN, MACHINE.UFO, null,
+        MACHINE.UFO, null, MACHINE.UFO
       ],
-      exampleScore: "Score: 6 points (2 empty spots with 3+ adjacent machines)"
+      exampleScore: "Score: 6 points (1 diagonal with two 🛸, and 1 line with two 🚀)"
     },
     {
       icon: MACHINE.JET,
       name: "Jet",
-      scoringRule: "Scores the square of the number of different machine types in the longest line from it",
+      scoringRule: "Scores 3 points for each different machine type in the longest line from it with most different machine type",
       boardSetup: [
         MACHINE.JET, MACHINE.AMBULANCE, MACHINE.HELICOPTER,
-        null, null, null,
+        MACHINE.TRAIN, null, null,
         null, null, null
       ],
-      exampleScore: "Score: 4 points (3 different types: Ambulance, Helicopter → 2² = 4)"
+      exampleScore: "Score: 6 points (2 different types: 🚑, 🚁 → 2*3 = 6)"
     },
     {
       icon: MACHINE.TRAIN,
@@ -64,7 +64,7 @@ export const TutorialGuide = ({ onClose }: MachineTutorialProps) => {
     {
       icon: MACHINE.MISSILE,
       name: "Missile",
-      scoringRule: "Scores 2 points for each non-Air machine (Train, Slot Machine, Ambulance, Missile) around it",
+      scoringRule: "Scores 2 points for each non-Air machine (🚆, 🎰, 🚑) around it",
       boardSetup: [
         MACHINE.AMBULANCE, MACHINE.TRAIN, null,
         MACHINE.SLOT_MACHINE, MACHINE.MISSILE, null,
@@ -81,7 +81,7 @@ export const TutorialGuide = ({ onClose }: MachineTutorialProps) => {
         MACHINE.TRAIN, MACHINE.SLOT_MACHINE, MACHINE.TRAIN,
         null, null, null
       ],
-      exampleScore: "Score: 8 points (2 types with 2+ each: Ambulance, Train → 4 + 4 = 8)"
+      exampleScore: "Score: 8 points (2 types with 2+ each: 🚑,🚆 → 4 + 4 = 8)"
     },
     {
       icon: MACHINE.UFO,
@@ -92,7 +92,7 @@ export const TutorialGuide = ({ onClose }: MachineTutorialProps) => {
         MACHINE.JET, MACHINE.UFO,  MACHINE.TRAIN,
         null, null, null
       ],
-      exampleScore: "Score: Ambulance scores base 1, doubled → 2. Jet scores base 4 → 8. Train scores base 1 → 2. so it doubles 1+4+1=6 to 12."
+      exampleScore: "Score: ✈️ scores base 6 → 12. 🚆 scores base 1 → 2. so it doubles 6+1=7 to 14. Note that 🚑 not doubled."
     },
   ];
 

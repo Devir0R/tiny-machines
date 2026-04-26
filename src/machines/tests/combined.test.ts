@@ -25,11 +25,11 @@ describe("Combined machines on a shared board", () => {
     for (let i = 0; i < board.length; i++) {
       if (board[i]) board[i]!.applyEffects(board);
     }
-    expect((board[0] as Jet).score(board)).toBe(8); // Base 4 * 2 (doubled by UFO)
+    expect((board[0] as Jet).score(board)).toBe(12); // Base 6 * 2 (doubled by UFO)
     expect((board[1] as Train).score(board)).toBe(1); // Not adjacent to UFO
     expect((board[4] as Ambulance).score(board)).toBe(12); // Base 6 * 2 (doubled by UFO)
     expect((board[6] as SlotMachine).score(board)).toBe(0);
-    expect((board[7] as Helicopter).score(board)).toBe(3); // Not adjacent to UFO
+    expect((board[7] as Helicopter).score(board)).toBe(0); // not two consecutive machines
     expect((board[8] as Missile).score(board)).toBe(2); // Not adjacent to UFO
     expect((board[3] as UFO).score(board)).toBe(0);
   });

@@ -15,7 +15,7 @@ describe("AlienJet", () => {
 
     design.applyEffect(board);
 
-    expect((board[4] as Jet).score(board)).toBe(2);
+    expect((board[4] as Jet).score(board)).toBe(6);
   });
 
   test("does not double jet score without adjacent UFO", () => {
@@ -26,6 +26,6 @@ describe("AlienJet", () => {
 
     design.applyEffect(board);
 
-    expect((board[4] as Jet).score(board)).toBe(1);
+    expect((board[4] as Jet).score(board)).toBe(3);
   });
 });

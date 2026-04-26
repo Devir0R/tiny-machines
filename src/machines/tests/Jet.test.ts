@@ -20,7 +20,7 @@ describe("Jet", () => {
     board[3] = new Train(3);
     board[5] = new Train(5);
 
-    expect((board[4] as Jet).getBaseScore(board)).toBe(1);
+    expect((board[4] as Jet).getBaseScore(board)).toBe(3);
   });
 
     test("stops scoring when the first adjacent space is occupied", () => {
@@ -34,6 +34,6 @@ describe("Jet", () => {
 //✈️✈️🚁
 //🚁 X X
 //🚁 X X
-    expect((board[0] as Jet).getBaseScore(board)).toBe(4);
+    expect((board[0] as Jet).getBaseScore(board)).toBe(6);
   });
 });

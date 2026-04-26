@@ -11,7 +11,7 @@ export class Jet extends Machine {
     constructor (index: number){
         super(index);
         this.name = "Jet";
-        this.description = "the number of different machines in a line coming out of it with most different machines squared";
+        this.description = "the number of different machines in a line coming out of it with most different machines times 3";
         this.icon = "✈️";
     }
 
@@ -20,7 +20,7 @@ export class Jet extends Machine {
         const scoringIndexes = this.scoringIndexes(machinesOnBoard);
         const distinctMachines = new Set<MACHINE|undefined>(scoringIndexes.map(index=>machinesOnBoard[index]?.icon))
 
-        return distinctMachines.size * distinctMachines.size;
+        return distinctMachines.size * 3;
     }
 
     getHighlightedIndexes(machinesOnBoard: (Machine | null)[]): number[]{
@@ -39,7 +39,11 @@ export class Jet extends Machine {
             return indexesInDirection;
         });
         return indexesEachDirection.reduce((acc,curr)=>{
-            if(new Set(acc).size < new Set(curr).size) return curr;
+            if(
+                new Set(acc.map(i=>machinesOnBoard[i]?.icon)).size 
+                < 
+                new Set(curr.map(i=>machinesOnBoard[i]?.icon)).size)
+                    return curr;
             else return acc;
         }, []);
     }
