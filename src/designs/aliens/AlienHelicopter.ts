@@ -1,42 +1,21 @@
 import { Design } from "../Design";
 import type { Machine } from "../../machines/Machine";
+import type { Helicopter } from "../../machines/Helicopter";
+import { MACHINE } from "../../interfaces/Machines";
 
+/**
+ * for each 🚁 adjacent to an 🛸, if one direction contain 2 🛸, double its score
+ */
 export class AlienHelicopter extends Design {
   name = "Alien Helicopter";
-  description = "for each 🚁 adjacent to an 🛸, an empty space around a 🚁, surrounded by at least four machines, gives doubles";
+  description = "for each 🚁 adjacent to an 🛸, if one direction contain 2 🛸, double its score";
   icon = "🛸🚁";
   rarity: "common" | "legendary" = "legendary";
   machines = ['🛸', '🚁'];
 
-  score(machinesOnBoard: (Machine | null)[]): number {
-      let score = 0;
-      for(const machine of machinesOnBoard) {
-        if (!machine || machine.icon !== '🚁') {
-          continue;
-        }
-        
-        if (!this.hasAdjacentUFO(machine, machinesOnBoard)) {
-            continue;
-        }
+  score(_machinesOnBoard: (Machine | null)[]): number {
+      return 0;
 
-        const indexesAround = machine.indexesAround(machine.index, machinesOnBoard);
-
-        for (const index of indexesAround) {
-            if (index !== -1 && machinesOnBoard[index] === null) {
-                const surroundingIndexes = machine.indexesAround(index, machinesOnBoard);
-                let surroundingMachinesCount = 0;
-                for (const surroundingIndex of surroundingIndexes) {
-                    if (surroundingIndex !== -1 && machinesOnBoard[surroundingIndex] !== null) {
-                        surroundingMachinesCount++;
-                    }
-                }
-                if (surroundingMachinesCount >= 4) {
-                    score += 4;
-                }
-            }
-        }
-      }
-      return score;
   }
 
   private hasAdjacentUFO(machine: Machine, machinesOnBoard: (Machine | null)[]) {
@@ -56,7 +35,24 @@ export class AlienHelicopter extends Design {
     return false;
   }
 
-  applyEffect(_machinesOnBoard: (Machine | null)[]): void {
-    return;
+  applyEffect(machinesOnBoard: (Machine | null)[]): void {
+    for(const machine of machinesOnBoard) {
+        if (!machine || machine.icon !== '🚁') {
+          continue;
+        }        
+        if (!this.hasAdjacentUFO(machine, machinesOnBoard)) {
+            continue;
+        }
+
+        const heli = machine as Helicopter;
+        const scoringPairAround = heli.scoringIndexes(machinesOnBoard);
+
+        for(let [i1,i2] of scoringPairAround){
+          if(machinesOnBoard[i1]?.icon === MACHINE.UFO && machinesOnBoard[i2]?.icon === MACHINE.UFO ){
+            heli.effects.push(score=>score*2);
+            return;            
+          }
+        }
+      }
   }
 }
